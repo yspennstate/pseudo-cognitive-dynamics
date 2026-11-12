@@ -1,0 +1,150 @@
+\section{Research programme and historical open problems}
+\label{sec:research}
+
+\subsection{What the research catalogue establishes}
+
+The recovered research programme includes exact finite certificates, restricted theorems, candidate answers to source questions, counterexamples, imported known results, and substantial unresolved conjectures. Its eight inspected intake queues contain 1,391 physical records and 1,168 distinct problem identifiers. Multiple identifiers can describe related or identical mathematical questions; an identifier count is neither a count of independent conjectures nor a count of solutions. The supplementary catalogue preserves original statements, versions, inherited status labels, source locations, and an explicit source-reported/unverified annotation. The 87 top-level ProofNet directories likewise include administrative and reused tracks.
+
+Four claims must be kept separate: a result exists in a repository associated with the Brain; a worker queried the Brain; the retrieved content changed a research step; and a controlled comparison demonstrates improved research success. The first is common, the second is sometimes logged, the third has a few direct traces, and the fourth remains insufficiently measured for long-form original theorem proving. The isolated Math Brain's own current deployment description distinguishes repository handoffs from verified native memory ingestion \citep{mathreadme}.
+
+\subsection{Open problems ordered by documented age}
+
+Table~\ref{tab:chronology} orders prominent tracks by the documented formulation or publication date. Approximate age means 2026 minus that date, not time spent by this project. An older background theory does not make a recent specialized target equally old. Where the original formulation was not recovered, the date is qualified or left unknown. Status describes the inspected project and literature evidence; candidate manuscript claims have not all been independently refereed by this review.
+
+\input{sections/07_chronology}
+
+\subsection{A direct trace of subconscious-to-conscious promotion}
+
+Four recorded retrieval events during the September 12 attack on a Wasserstein copula question illustrate both useful and unproductive memory access. One recalled scar about reversing an inequality direction led the worker to recheck whether a perimeter comparison supplied a lower or upper bound. The log records a changed local research step, with no change of overall route. The other three events produced no reported proof change, with silence or unrelated material among the responses. This is an observable instance of a persistent mistake record becoming a context-visible checking action. Four observational calls do not estimate a theorem-solving success rate or net token savings \citep{CaseBrainUsageG0013,CaseBrainUsageG0013Q2}.
+
+The same case illustrates why literature reconciliation belongs in memory maintenance. Jonathan Ansari's independent September 20, 2026 preprint claims the sharp inequality $W_2^2(C,\Pi)\leq 1/10$ for bivariate copulas, with equality at the Fr\'echet--Hoeffding extremizers. The paper attributes the conjecture to Catalano--Lavenant (2025). This external claimed resolution must receive external credit, even if an older project queue still lists the question as open \citep{Ansari2026Copula}.
+
+\subsection{Fourier entropy--influence: composition and preserved counterexamples}
+
+For a Boolean function $f:\{-1,1\}^n\to\{-1,1\}$ under the uniform measure, let $p_f(S)=\widehat f(S)^2$. Parseval's identity makes $p_f$ a probability distribution. Define
+\[
+H(f)=\sum_S p_f(S)\log_2\frac1{p_f(S)},\qquad
+I(f)=\sum_S |S|p_f(S),
+\]
+with the usual zero-term convention. The 1996 FEI conjecture asks whether $H(f)\leq C I(f)$ for a universal constant $C$. The retrieved current project state leaves the full conjecture open \citep{ODonnellTanFEI,CaseFEICurrent2026}.
+
+The September 21 package reports an interval-certified bound $H(f)\leq6.4573I(f)$ for read-once formulas over AND, OR, and NOT. Its argument reduces composition to a two-variable inequality and covers the required domain with certified intervals. Read-once bounded-arity FEI is established prior mathematics; the project's particular numerical certificate and scope should be assessed against that literature. A sharper numerical candidate near $6.4547837$ is not a proved optimal constant. A later attempted margin certificate fails at a displayed degenerate cell, so success on other cells cannot authorize the stronger theorem \citep{CaseFEIReadOnce2026,ODonnellTanFEI}.
+
+The general research develops restriction identities expressing entropy changes through Jensen--Shannon divergence and conditional binary entropy. A potential-based induction would require, for an appropriate coordinate $i$,
+\[
+\Delta_i H\leq C\operatorname{Inf}_i(f)+\Psi(f)
+-\tfrac12\{\Psi(f_{i=-1})+\Psi(f_{i=1})\},
+\qquad 0\leq\Psi(f)\leq K I(f).
+\]
+An admissible recursive choice and telescoping would yield $H(f)\leq(C+K)I(f)$. The existence of a universally valid potential is the central unpaid obligation, not a consequence of writing the template. Current records retain an 18-input counterexample to candidate coefficients $0.337/0.34$, a rare-suspension obstruction to an unweighted convolution payment, and a primitive-terminal counterexample to a raw $U_4$ inequality \citep{CaseFEICurrent2026}.
+
+The scientific value of the scar layer here is precise: it preserves the orientation, bias, and exceptional configurations that defeat attractive induction schemes. A short memory saying only that a potential ``almost works'' would actively damage future reasoning. A useful memory stores the failed inequality, its hypotheses, an exact obstruction, and the remaining valid subcase.
+
+\subsection{Sharp Rademacher singularity: dependency graphs and retraction}
+
+The campaign targets
+\[
+\Pp(\det B_n=0)\sim 2n^2 2^{-n}
+\]
+for an $n\times n$ matrix of independent symmetric signs. Repeated or opposite row and column pairs suggest the leading term. The unresolved issue is showing that all other dependencies contribute negligibly at that scale. The weaker exponential-base statement $(1/2+o(1))^n$ does not determine this prefactor \citep{KahnKomlosSzemeredi1995,CaseRademacherMemory2026}.
+
+The inspected local memory snapshot reports 325 mathematical objects and 602 dependency edges. Its object types include certificates, counterexamples, failed routes, lemmas, open gaps, and theorem objects; its status labels separately distinguish audited, exact, conditional, numerical, disproved, and open entries. Those database counts do not measure independent novel theorems. Reported mathematical tools include the entropy-sharpened residual-rank bound $d_{\mathrm{cb}}(A)\leq9\cdot4^\ell+\ell$, bounded-congestion quotient estimates, exact small-support geometry, and selector/transversality arguments. The final entropy-rigidity and probabilistic-transfer bridges remain open \citep{CaseRademacherMemory2026}.
+
+A Pasch counterexample invalidated an earlier audited-pass circuit claim and a counting consequence by an unbounded factor. The recorded response downgraded the relevant objects and retained the replacement gap. This is a concrete reason to make negative dependency edges and revision history first-class data. A retrieval engine that repeatedly serves the old audited label without the later counterexample would turn accumulated work into accumulated error.
+
+\subsection{Lyons entropy concavity: the target survives failed sufficient conditions}
+
+For a finite positive contraction $Q$, write $P_Q$ for its determinantal-process law. Lyons's conjecture asks whether $H(P_{(1-t)Q_0+tQ_1})$ is concave in $t$. Along a differentiable probability path $p_x(t)$ with positive coordinates, direct differentiation gives
+\[
+\frac{d^2H}{dt^2}
+=-\sum_x\frac{(p_x')^2}{p_x}
+-\sum_xp_x''\log p_x,
+\]
+for natural-log entropy. The first term is nonpositive; the second has no automatic sign. The identity explains why a Fisher-information argument alone does not establish the conjecture \citep{Lyons2003,Lyons2014,CaseLyons2026}.
+
+The September 17 continuation reports restricted four-site/Fourier results, coupling concavity at fixed pair spectral means, and exact coefficient certificates. Its collection includes 75 polynomial identities and an extension with 21 more identities and 36 rational checks. Exact counterexamples refute stronger shuffle, resolvent, and partial-integral positivity statements. Those counterexamples invalidate routes toward the conjecture; they do not refute the original conjecture. The correct graph relation is ``counterexample refutes auxiliary lemma used by target,'' with the target still open \citep{CaseLyons2026}.
+
+\subsection{Quadratic forms: new scoped bounds and the unrestricted gap}
+
+The current owner target concerns
+\[
+Q=X^\mathsf{T}AX+b^\mathsf{T}X+c,
+\]
+where the coordinates of $X$ are independent with densities bounded by one, $A$ is real symmetric, and at least three eigenvalues satisfy $|\lambda_j(A)|\geq1$. The desired conclusion is a universal bound on $\norm{p_Q}_\infty$. The September 23 release explicitly retains the unrestricted indefinite problem as open, despite a directory name containing ``full-proof-paper.'' Its manuscript presents complete proofs of scoped partial theorems and separate remaining endpoint problems \citep{CaseQFORMRelease2026,CaseQFORMScope2026}.
+
+\paragraph{Gaussian mixtures with controlled component peaks.}
+The release proves a bound for independent coordinate mixtures
+\[
+X_i=M_i+\sqrt{T_i}G_i,\qquad T_i>0,\qquad
+\E T_i^{-1/2}\leq\sqrt{2\pi},
+\]
+where the pairs $(M_i,T_i)$ are independent and the $G_i$ are mutually independent standard Gaussians, jointly independent of all mixture pairs. For $3\leq k\leq\operatorname{rank}A$, put
+\[
+Z_k=e_k(A^2)=\sum_{|I|=|J|=k}\det(A_{IJ})^2,
+\qquad
+\mathcal I_k=\int_0^\infty(1+u^{2k})^{-1/4}\,du.
+\]
+The source theorem states
+\begin{equation}
+\norm{p_Q}_\infty\leq\mathcal I_k Z_k^{-1/(2k)},\qquad
+\mathcal I_k=\frac1{2k}B\!\left(\frac1{2k},\frac14-\frac1{2k}\right)
+<\frac{k}{k-2}.
+\label{eq:qformmixture}
+\end{equation}
+Thus the three-large-eigenvalue condition gives a constant strictly below three in this class \citep{CaseQFORMGaussian2026}.
+
+The proof conditions on the mixture variables, bounds the Gaussian quadratic characteristic function by a determinant, expands its elementary symmetric coefficient into squared minors using Cauchy--Binet, and combines weighted arithmetic--geometric mean with independent fractional moments. The resulting coordinate weights satisfy $0\leq\alpha_i\leq2$ and $\sum_i\alpha_i=2k$, so the moment exponents are at most $2/k<1$. This supplies the integrability needed for Fourier inversion. The beta integral follows from $v=u^{2k}$; splitting at one gives the simple bound $1+2/(k-2)=k/(k-2)$.
+
+The average component-peak hypothesis is essential to the stated argument. For deterministic centers, a Gaussian scale mixture's density cap is equivalent to the displayed negative moment condition. For random centers, many very narrow, widely separated components can produce a bounded marginal density while their average component peaks are large. Approximation by Gaussian mixtures therefore does not extend the theorem to every bounded density without an additional uniform estimate.
+
+\paragraph{Semidefinite and other partial results.}
+The same release proves the dimension- and rank-independent bound
+\[
+\norm{p_Q}_\infty\leq \frac{17100}{\lambda_3(A)}
+\]
+for positive semidefinite $A$ with third largest eigenvalue positive, arbitrary affine term, and independent cap-one input densities. A negative-semidefinite analogue follows by sign reversal. Other scoped results concern an $O(\sqrt n)$ bound for arbitrary signatures, rank-two Riesz-potential estimates, physical-coordinate determinant bounds, spectral spread, hub conditioning, and fixed-matrix continuity. These do not yet close the universal indefinite target \citep{CaseQFORMSemidefinite2026,CaseQFORMRelease2026}.
+
+\paragraph{What the mistake layer must preserve.}
+A bounded joint density in three dimensions is insufficient for the indefinite claim: a thin, volume-normalized shell around a quadratic cone can concentrate the pushforward on an arbitrarily short interval. This refutes a proposed joint-density coarea argument while violating the target's product-law assumption. Rotating independent coordinates generally destroys independence. An unconditional projection cap is not a cap for every conditional distribution. Further corrections distinguish $\operatorname{diag}|A|$ from $|\operatorname{diag}A|$, interval estimates from domination on all Borel sets, and a singular-minor inequality from an invalid identity. Rough bounded densities also obstruct a proposed uniform pointwise Fourier-decay bound \citep{CaseQFORMScope2026}.
+
+These corrections are mathematically valuable because they locate the exact missing hypotheses. They explain why a memory system must retain a theorem's domain, quantifiers, and exceptions alongside its conclusion. Their existence does not prove that a deployed hook reliably delivered each correction to every worker.
+
+\input{sections/07_update}
+
+\subsection{Janson condensation: improving the statement as well as the proof}
+
+For nonnegative weights $w_j$ with $w_0>0$, a random allocation of $m$ balls into $n$ boxes has probability proportional to $\prod_iw_{y_i}$. Zero convergence radius means $\limsup_j w_j^{1/j}=\infty$. The September 17 draft claims that for every $\varepsilon\in(0,1)$ and $0<\alpha<\beta<\infty$, there are $\delta>0$ and supported $k_r\to\infty$ such that
+\[
+\sup\Pp\{Y_{(1)}\leq(1-\varepsilon)m\}\longrightarrow0,
+\]
+where the supremum is over admissible integer pairs with
+$(1+3\delta)k_r\leq m\leq(1+5\delta)k_r$ and $\alpha\leq m/n\leq\beta$.
+Consequently, every full admissible path with $m_n/n\to\lambda\in(0,\infty)$ has a subsequence along which $Y_{(1)}/m_n\to1$ in probability and $L^1$. The draft identifies a universal sampling criterion $N_{j+1}/N_j\to1$ and explicitly leaves the distinct positive-boundary-mean problem untouched \citep{Janson2012,CaseJanson2026}.
+
+After normalizing $w_0=1$, its insertion argument preserves the entire truncated small-box partition function rather than comparing a large numerator with one selected denominator configuration. The finite insertion lemma specifies additional size and supported-residual hypotheses so that the falling-factorial count pays for the added boxes. Record-dependent tilts and record margins then create uniform mass windows. An older all-balls claim $\Pp(Y_{(1)}=m)\to1$ was false: factorial weights give a nontrivial limit $e^{-1/\lambda}$. Replacing it with a subsequential near-total-fraction statement changes the theorem, not merely its presentation \citep{CaseJanson2026}.
+
+The archive reports 18,000 sharp-insertion checks, 13,240 coarse checks, three labelled double counts, 84 tail checks, and 23,713 plane trees with 422 conditional-root identities. Such finite checks can detect wrong coefficients and boundary cases; they do not prove the limiting theorem. Five sequential same-assistant reviews are not five independent referees \citep{CaseJansonAudit2026}.
+
+\subsection{Further candidate contributions and exact certificates}
+
+\paragraph{Free-Brownian unimodality.}
+The Hasebe--Ueda source proves a sufficient threshold $t\geq4D^2$ for initial support diameter $D$. The project draft claims the sharp $t\geq D^2$, attained by a symmetric two-atom example. Cauchy-profile curvature and extreme-two-atom reductions feed into Biane subordination. This review distinguishes the full analytic claim from checked algebraic cores; the latter do not certify subordination or measure-theoretic regularity. The source's displayed lower constant also requires normalization care: its support $\{-1,1\}$ has $D=2$ and transition $t=4$, yielding a ratio one \citep{HasebeUeda2018,CaseFreeUnimodality2026}.
+
+\paragraph{Conditioned Galton--Watson degree counts.}
+The Th\'evenin campaign constructs two candidate counterexamples: a subcritical law with finite third moment and no exponential moment, and a critical law with infinite variance. Two giant-degree alternatives separated by order $\sqrt n$ induce an opposite-mean mixture of Gaussian limits for a normalized degree-one count. The mechanism shows why conditioning and rare-tail geometry cannot be inferred from a few finite moments alone. Exact small-$n$ dynamic programming and large-index arithmetic checks support internal calculations; the asymptotic analytic bridge requires its own proof \citep{TheveninDegreeCounts,CaseThevenin2026}.
+
+\paragraph{Sidorenko on a restricted continuum.}
+For $H=K_{5,5}\setminus C_{10}$ and symmetric nonnegative three-block host matrices with normalized row sums three, the project reduces a homomorphism inequality to a degree-at-most-15 polynomial with 664 monomials. After boundary parametrization and a fourth-order factor, 12,288 exact rational Bernstein coefficients have minimum $725117/3179904>1/5$. Bernstein basis functions are nonnegative and sum to one, so coefficient bounds certify every point of the covered cubes. This yields quantitative stability, including the reported bound $t_H(A)\geq1+\frac1{20}\norm{A-\mathbf1}_2^4$ in the source's normalized coordinates. It is a continuum certificate in a restricted domain, not a solution for every graphon \citep{CaseSidorenko2026}.
+
+\paragraph{Aldous--Fill counterexamples.}
+Cycle blow-ups give explicit hitting and commute formulas for the precise arc-transitive source questions. A distinct Ramanujan-cone construction makes a flow/relaxation/diameter ratio unbounded. This is stronger than exhibiting one ratio slightly above two, which would only refute the constant two. Source-question fidelity determines what each construction resolves \citep{AldousFillBook,CaseArcTransitive2026,CaseFlowDiameter2026}.
+
+\subsection{Remaining frontiers and the value of negative results}
+
+The September 20 frontier register records a binary LCS upper bound $0.8262759427622826$ and reference lower bound $0.792665992$, without determining the constant. For the negative spherical perceptron at $\kappa=-1$, it reports lower $6.30297437506$ and upper $12.3196348278$; a proposed third-lift value $12.28722223$ still needs its comparison theorem and root certificate. A random-3SAT candidate bound $4.3888762$ and integrated fractional-Brownian estimate $0.171587<\theta\leq1/4$ likewise retain their stated scope and unresolved exact targets. Selected Galton--Watson, Cayley percolation, and cutoff families do not settle the universal conjectures. For exponential first-passage percolation, the required strict defect $2\mu(e_1)-\mu(1,1)>0$ still has reported lower bound zero \citep{CaseComputeStrategy2026,CaseProgress2026}.
+
+Several exact research metrics remained unchanged: the inspected Hadamard run added no unresolved order; the \v Cern\'y complete-size metric stayed seven; the tracked five-chromatic unit-distance graph remained at 509 vertices; and a fixed Baum--Connes subgroup was already saturated at rank two. Recording these outcomes prevents repeated expenditure on a completed restricted task or an exhausted search family \citep{CaseHadamard2026,CaseCerny2026,CaseHadwigerNelson2026,CaseBaumConnes2026}.
+
+The broader archive also contains source-reported phase-retrieval exponents, minimum-square-submatrix asymptotics, overlap identities, and Pl\"ucker-coordinate extremal calculations. Its non-Gaussian transfer and conditional-overlap bridges remain explicit. Imported results on tree height, queue variability, or known finite constructions receive literature credit. Later adjudication corrects older minimal-spanning-forest and gossip-game cards, demonstrating that a ``solved'' label can become stale \citep{CaseBroadSolvedRegister2026,CaseCampaignIndex2026,CaseW7Adjudication2026}.
+
+The mathematics therefore supports several distinct forms of value: stronger scoped bounds, exact certificates, reusable counterexamples, clarified conjectures, explicit missing bridges, and avoidance of false novelty. The paper supplies a research history and an evaluation programme for these benefits. It does not assign a monetary value to each theorem or attribute all associated mathematical progress causally to Math Brain.

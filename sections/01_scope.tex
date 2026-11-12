@@ -1,0 +1,44 @@
+\section{Scope and research questions}
+
+An AI-assisted mathematical project often outlives the context in which its best ideas were found. Definitions change, an attractive proof route fails, a constant is corrected, and a later session encounters a similar problem without knowing which part of the earlier work survived. Persistent memory is valuable when it restores the relevant argument together with its conditions and verification state. Its value is reduced when it restores an obsolete conclusion, floods the context with unrelated material, or encourages an agent to treat repeated assertions as independent evidence.
+
+This paper studies Math Brain as an engineered response to that problem. The mathematical subsystem stores claims, proof attempts, counterexamples, dependencies, sources, and verification records. The surrounding memory system provides session initialization, retrieval, salience, reminders, mistake detection, consolidation, and agent coordination. The active model performs the reasoning; the external system chooses what prior information and control signals become available to it. The repositories describe these mechanisms in executable code as well as design documents, and contain a substantial experimental history \citep{mathreadme,matharchitecture,broadarchitecture,canonical}.
+
+\subsection{The proposed field}
+
+We use \emph{Mathematics of Pseudo-Cognitive Dynamics} for the study of coupled processes in which finite-context inference interacts with persistent, structured, selectively retrieved memory. Its objects include context states, memory revisions, retrieval policies, attention budgets, error histories, verification transitions, and resource costs. Its central questions are mathematical and empirical:
+
+\begin{enumerate}
+\item Which stored information should enter the current context under a finite token budget?
+\item How should associations and recency affect retrieval without changing the evidentiary status of a claim?
+\item When does a remembered error prevent a new error, and when does it produce a false alarm?
+\item How should corrections propagate through a network of mathematical dependencies?
+\item What benefit remains after controlling for access to answers, extra computation, model identity, and evaluation leakage?
+\item Can the additional cost of retrieval, hooks, consolidation, and verification be justified by better research outcomes?
+\end{enumerate}
+
+The field name is a proposal. The underlying ideas connect to established work in information retrieval, cognitive architectures, verification, optimization, and experimental design. Introducing a unified vocabulary does not establish priority over those fields. The mathematical results in Section~\ref{sec:dynamics} are explicitly conditional models and adaptations of standard arguments; they are not offered as new solutions of the external conjectures discussed later.
+
+\subsection{Conscious and subconscious layers}
+
+The \emph{conscious layer} is the context actually available to the model for its current inference: instructions, selected history, retrieved records, tool outputs, and the current task. The \emph{subconscious layer} is the persistent external machinery that stores, indexes, associates, filters, and proposes information for later inference. A stored fact becomes active when its representation is delivered into the context. A stored fact can also influence an external controller without its full text being delivered.
+
+This definition follows an information-access boundary, not a filename. Some legacy files label high-priority external memories \emph{conscious} and lower-priority external memories \emph{subconscious}. In this paper both remain external memory until a particular representation is admitted to the current context. Conversely, a context can contain text about a dormant memory without containing its full proof. Context availability also does not prove that the model attended to, used, or understood that text \citep{consciousness,canonical}.
+
+The analogy is functional. Human global-workspace theories study access and broad availability within biological cognition; complementary-learning-systems theory distinguishes rapid acquisition from slower integration \citep{dehaene2011,mcclelland1995,shanahan2005}. Those theories motivate questions about selective broadcast and consolidation. They do not establish that a database is a hippocampus, a prompt is a human conscious experience, or an automated replay script implements sleep.
+
+\subsection{Evidence and snapshot method}
+
+Three private source collections supply the principal artifact evidence: the mathematical memory repository, the broader memory and functionality repository, and the mathematical open-problems repository. The full frozen revision identifiers appear in Appendix~\ref{app:reproducibility}. Individual source references identify the relevant file and revision. These repositories continue to change; the paper is a dated account, not a real-time dashboard. This revised edition adds a later pinned evidence window, including a four-arm operational instruction-following study, retrieval-policy diagnostics, changes to the smaller-context AB30 arm, and clarified mathematical research scope. The historical 45-row comparison inventory and the later study remain distinct; event timestamps are not inferred from commit times. Appendix~\ref{app:update} records the additional revisions.
+
+The review examined architectural specifications and their implementation, benchmark reports and available row-level grades, token-ledger generation and aggregates, proof and audit artifacts, and current coordination records. Selected grade totals and usage sums were independently recomputed. A concrete defect in the current benchmark scorer was reproduced and a minimal correction tested with a synthetic fixture. Formal-source and build-log inspection was supplemented by small local parser and routing checks; no new language-model benchmark cohort and no fresh Lean kernel run are claimed.
+
+The coverage is substantial but finite. The supplied research inventory preserves 1,391 physical catalog records from eight retrieved catalogs, with 1,168 distinct recorded identifiers and 223 repeated identifier occurrences. Identifier counts are not counts of unique mathematical problems: formulations overlap, versions recur, and deduplication keys can combine distinct clauses. Selected named cases receive substantive discussion, while the complete retrieved catalog is supplied as a machine-readable supplement. Source years in that catalog are not silently converted into conjecture-origin years.
+
+Five evidentiary distinctions govern the analysis. A design specification establishes intended behavior; source code establishes an implemented path; an execution record establishes a particular observed run; a graded experiment estimates a performance contrast under its design; and a proof establishes precisely its stated mathematical conclusion. A status label or commit hash identifies a record without independently certifying its truth. These distinctions are already central to the project's operating contract \citep{canonical,matharchitecture}.
+
+\subsection{Related computational methods}
+
+Retrieval-augmented generation connects language-model generation with retrieved external passages \citep{rag2020}. Math Brain specializes this idea by representing assumptions, counterexamples, dependency relations, and evidence status alongside text. Reflexion uses linguistic feedback and episodic memory to improve later attempts \citep{reflexion2023}; the mistake and scar layers serve a related purpose, with a stronger emphasis on explicit failure conditions and provenance. MemGPT studies management of limited context through external memory \citep{memgpt2023}. Generative Agents combine stored experience, reflection, and retrieval in a simulation setting \citep{generative2023}. These are relevant precedents rather than controlled baselines for this particular system.
+
+LeanDojo connects premise retrieval to formal theorem proving \citep{leandojo2023}. It illustrates why selecting relevant lemmas and checking a proof are distinct computational tasks. Research on long-context language models also shows that making information available in a large context does not guarantee uniform use of it \citep{lostmiddle2024}. Together these precedents support a research programme centered on useful selection, auditable feedback, and verification. They do not justify a claim that the present implementation is superior without a matched comparison.

@@ -1,0 +1,88 @@
+\section{Evaluation methods and observed performance}
+\label{sec:eval}
+
+\subsection{What each kind of test measures}
+
+The archive contains several different evaluation families. Retrieval tests ask whether a target record appears in the returned set. Private-knowledge tests ask for facts or source locations available in the project's memory. Proof-audit tests ask whether a mathematical argument is valid and, if not, where it first fails. Scar tests ask whether an agent avoids a known practical trap. Infrastructure tests exercise schemas, isolation, parsers, provenance, or runtime delivery.
+
+These endpoints should not be merged into one accuracy number. A system can retrieve a remembered answer perfectly without improving deduction on an unseen theorem. It can pass a parser test while a production hook fails to import a dependency. It can improve recall while increasing total cost. The methodology must preserve the question each test was designed to answer.
+
+A planted-error bank typically begins with a correct proof, changes a line or assumption, and asks the solver to identify validity and the first error. Mutation operators include sign changes, quantifier swaps, altered hypotheses, theorem substitutions, limit changes, and constant errors. A valid key must establish that the mutation actually creates an error. Cosmetic changes, equivalent statements, or a renamed standard theorem are not necessarily mathematical defects. Clean items are essential because a detector that rejects everything can appear successful on a bank containing only invalid arguments.
+
+The current 30-pair protocol illustrates this validity work. Its 20 proof audits were selected from a 4,144-item multidomain bank; the author reports excluding 13 of 28 flawed candidates because their changes did not create genuine errors. Ten further questions concern the project's own mathematical results. These two strata intentionally measure different functions \citep{ab30prereg}.
+
+\subsection{Interventions and control conditions}
+
+At least four comparisons occur in the records:
+
+\begin{enumerate}
+\item Baseline context versus an added mathematical note.
+\item Relevant memory versus an irrelevant or generic placebo note.
+\item Extra retrieval versus no extra retrieval when both arms inherit ambient memory.
+\item The full surrounding brain, with hooks and broader tools, versus a restricted or safe-mode configuration.
+\end{enumerate}
+
+The first measures the added-note intervention. The second helps distinguish note content from posture or formatting. The third measures incremental retrieval beyond a shared preload. The fourth measures a bundled assistance policy. A large difference in the fourth comparison does not identify the causal contribution of typed mathematical memory alone.
+
+Controls in several earlier studies inherited standing files or indexes from the parent session. Asking a solver to ignore them is weaker than preventing access. The newest protocol starts the control outside the usual home directory in safe mode and probes the absence of automatic hooks and memory files in the starting context. However, the script permits local files and retains shell/read tools, so initialization separation alone does not establish filesystem isolation. Per-run access traces are still necessary \citep{ab30prereg,ab30analyze,benchmark_ab30run,benchmark_contamination}.
+
+\subsection{Comparative results}
+
+\input{sections/05_results_table}
+
+The table preserves the units, denominators, and qualifications of the recovered reports. Results are descriptive unless their experimental design supports stronger inference. The supplement expands the result inventory, source paths, and selected recomputations. Reused banks and related reruns are reported separately rather than pooled into a grand total.
+
+\subsection{Knowledge access versus mathematical inference}
+
+The most striking score improvements occur where the answers depend on local project knowledge. In the September 22 two-agent comparison, the retained mathematical-result questions scored 27/27 with the brain and 1/27 in the restricted control, with an additional partial control answer and 25 control abstentions. Safeguard questions scored 27/27 in both arms. Six of the original 60 questions were removed as preload-contaminated. The experiment used one batch-answering agent per arm and unequal assistance/tool access \citep{twoopus}.
+
+This is strong descriptive evidence that the configured system makes project-specific information available. It does not show that a model with access to the same source documents would be unable to derive or locate those answers. Nor does it show an improvement on the separate safeguard set, where both arms reached the ceiling.
+
+A 1,000-item run similarly reports 1,000 full-correct answers in the brain arm versus 538 in the control. The inspected grades place all 462 gains in store-page metadata questions, while the proof and self-avoiding-walk slices were already perfect in both arms. That composition explains the aggregate; it cannot be described as 462 new mathematical deductions \citep{benchmark_onek}.
+
+The 200-question recall comparison reports 142 full-correct answers versus 12, but also 17 wrong answers versus 16 and 24 abstentions versus 127. The assisted system answered more questions. Its lower wrong-answer fraction among attempted answers conditions on a different subset and therefore is not a paired demonstration that every answered problem became safer. Ambient context contamination also limits the interpretation of the control \citep{benchmark_recall200,benchmark_contamination}.
+
+\subsection{Mixed results on proof audits and scars}
+
+Several proof-audit comparisons have small favorable differences, while others show no reliable separation or a harmful effect. Ceiling effects make some apparent successes uninformative about the intervention. In the early 135-pair experiment, a perfect assisted arm initially suggested a benefit; a later placebo arm also reached the ceiling on its 48-item subset, undermining attribution to relevant mathematical content \citep{benchmark_v5,benchmark_v5raw}.
+
+The harder-35 comparisons show why clean and flawed items, false alarms, and exact localization must be retained. A warning tuned to an old failure can incorrectly flag a legitimate weakening of assumptions when that weakening is the theorem being proved. The proof hook's own correction history records this mechanism \citep{proofhooks}. Error memory must be tested for false positives as well as successful warnings.
+
+The September 23 safeguard trials likewise separate recalled detail from changed behavior. A 16-item trial scored 16/16 in both arms. A second 16-item trial scored 15.5 versus 14 on a strict rubric, and 15.5 versus 15 on the core safeguard alone; its preregistered four-point advantage was not achieved. The brain arm often supplied more local history, but additional detail and additional safety are distinct outcomes \citep{benchmark_t2,benchmark_t3}.
+
+\input{sections/05_update}
+
+\subsection{Statistical interpretation}
+
+For binary outcomes on the same $n$ tasks, let $b$ be the number solved only by the brain arm and $c$ the number solved only by the control. The paired accuracy difference is $(b-c)/n$. Under independent paired observations and the null that either arm is equally likely to win a discordant pair, conditioning on $b+c$ gives the two-sided exact sign/McNemar calculation
+\[
+p=\min\left\{1,\;
+2\sum_{j=0}^{\min(b,c)}
+\binom{b+c}{j}2^{-(b+c)}
+\right\}.
+\]
+For fractional rubric scores, a sign test on positive versus negative paired score differences addresses the frequency of wins rather than their magnitude. A zero stored after decimal rounding is not a mathematically zero probability.
+
+The calculation alone does not validate the experiment. Hundreds of items answered by a few batch agents share context and prompting; variants from the same proof share content. Their effective units of replication are not necessarily independent items. Repeated tuning on a bank, selection after inspecting failures, unmasked adjudication, and contamination all affect interpretation. A small nominal item-level $p$ cannot repair those issues. Conversely, a nonsignificant difference does not establish equivalence.
+
+The appropriate reporting unit includes the model and version, prompt and tool policy, memory snapshot, independent sessions, item families, clean/flawed counts, missing outcomes, grading process, exclusions, and costs. A future confirmatory analysis should use independent session replications and hold out problem families or sources, not merely renumber existing variants.
+
+\subsection{The 30-pair study and its evolving implementation}
+
+The campaign preregisters one headless session per item per arm, 20 proof audits and 10 project-result questions, masked grading, token recording, and contamination exclusions. At the later pinned snapshot it still has no committed run receipts, masked or adjudicated grade files, or final token and result summaries. All 30 planned round-one pairs lack committed outcome evidence; the actual local completion count remains unknown. New runner and analyzer code recognizes an \code{ondiet} arm and alternate run directories, but neither a round-two denominator nor completed outcomes can be recovered from those scripts. The campaign is therefore not counted as a completed performance result \citep{benchmark_update_ab30_directory,benchmark_update_ab30_readme,benchmark_update_ab30_prereg,benchmark_update_ab30_runner,benchmark_update_ab30_analyzer}.
+
+The deviations are informative. A network-using pilot was stopped and excluded. Both arms were placed under a lower process priority. The cost analyzer was changed to read session-level \code{modelUsage}, because one example's last-chain usage reported 912 output tokens whereas session-level usage reported 25,528. A live hook was changed during the study, and other sessions could alter the assisted system. Those facts require version and latency qualifications; unchanged output format alone does not prove that tokens or answers were unaffected \citep{ab30deviation}.
+
+The current analyzer still contains the original list--set union error in family grouping. The update rebases the one-line correction onto the newer source, preserving its diet-arm and alternate-directory additions. A synthetic fixture reproduces the original failure and verifies the corrected combined and family summaries. It also confirms cumulative usage aggregation over two fabricated model entries. These are software checks, not additional mathematical trials \citep{benchmark_update_ab30_analyzer}.
+
+\paragraph{The diet-arm interface does not establish an effective treatment.}
+The runner sets \code{BRAIN_HEADLESS_DIET=1} for \code{ondiet}, but the pinned dispatcher never reads that variable. It instead requires the shared \code{HEADLESS_DIET_ON} marker before classifying a headless session. Both assisted arms use the same working directory and headless prompt. Evaluating the actual source functions with a synthetic prompt therefore gives no diet classification for either arm when the marker is absent, and diet classification for both when it is present. This proves a mismatch between the committed interfaces. It does not establish the installed native version, marker state, or actual treatment delivered in an uncommitted trial \citep{benchmark_update_ab30_runner,dispatcher20260923}.
+
+The proposed repair makes the runner supply an explicit zero for full \code{on} and one for \code{ondiet}. The dispatcher reads this override before its existing classifier: zero disables diet, one enables it for recognized headless sessions, and an absent or unrecognized value preserves the legacy marker behavior. All 12 synthetic combinations of two marker states, three inherited flag states, and two assisted arms preserve the intended distinction. Further mocked controls check ordinary events, saved headless classification, and the retained/skipped hook branch. The skip list includes canonical and project-memory hooks; its removed content has not been shown to be irrelevant. Standard startup files remain. The package is an additive proposal requiring native integration and a documented experimental amendment, not evidence of deployed savings.
+
+\paragraph{Score, cost, and cohort denominators still differ.}
+Although token reporting and the masked sheet recognize \code{ondiet}, the scorer still compares only \code{on} and \code{off}. A diet grade does not enter a score contrast. Selecting a run directory does not merge rounds; colocating old and new same-item records can construct a pair without checking round, model, prompt, or memory version. Missing pairs disappear, duplicate grades overwrite earlier entries, and scoring does not consume the contamination report. A complete analysis therefore requires explicit grade uniqueness, cohort membership, and paired exclusions \citep{benchmark_update_ab30_analyzer}.
+
+The token aggregates select records labeled \code{status=ok}; this is not verified successful completion. The runner can assign that label to a result with nonzero return code and \code{is_error=True}, then skip it as already complete. A mocked process reproduces this behavior. The analyzer reads current result files rather than the full attempt history, includes unmatched eligible-status records in arm totals, and uses matched records for cost ratios. Missing components become zero without a completeness flag. These different populations cannot silently share a denominator. Failed attempts, pilots, retries, and overwritten runs need a separate end-to-end ledger; the proposal does not invent a replacement retry or exclusion policy \citep{benchmark_update_ab30_runner,benchmark_update_ab30_analyzer}.
+
+The contamination scan also labels an empty or malformed-only parsed stream \code{CLEAN}. Its output establishes only the absence of recognized patterns in parsed events; it does not certify complete logging or permitted access. A missing stream raises an error. The source's once-only retry rule is not implemented by the runner itself, and the sign-test helper can round a positive probability to zero. Appendix~\ref{app:update} identifies the reproducible controls and their exact boundary \citep{benchmark_update_ab30_analyzer,benchmark_update_ab30_prereg}.

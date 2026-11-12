@@ -1,0 +1,124 @@
+\section{Architecture of the persistent mathematical brain}
+
+\subsection{The complete information cycle}
+
+The central mechanism is a feedback loop. A question activates retrieval cues. The external system finds candidate memories, follows selected associations, checks eligibility and provenance, and renders a bounded set of cards or warnings. The model then reasons with the resulting context. Its work produces new conjectures, proofs, calculations, failures, or corrections. Those outputs can become new persistent records, but mathematical status changes require evidence covering the corresponding claim \citep{matharchitecture,canonical}.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=10mm and 9mm,>=Latex,
+ box/.style={draw=black!60,rounded corners=2pt,fill=black!3,align=center,text width=38mm,minimum height=14mm,font=\small},
+ wide/.style={box,text width=47mm}]
+\node[wide] (memory) {Persistent memory\\facts, attempts, scars};
+\node[wide,right=of memory] (retrieve) {Selection and hooks\\relevance, budget, status};
+\node[wide,below=of retrieve] (context) {Active model context\\reasoning and tool use};
+\node[wide,left=of context] (evidence) {Evidence and revision\\proofs, checks, corrections};
+\node[box,below=of evidence] (replay) {Consolidation proposals\\links and future checks};
+\node[box,right=of replay] (verify) {Verification boundary\\scope and fidelity};
+\draw[->] (memory)--(retrieve);
+\draw[->] (retrieve)--(context);
+\draw[->] (context)--(evidence);
+\draw[->] (evidence)--(memory);
+\draw[->] (memory.west) -- ++(-7mm,0) |- (replay.west);
+\draw[->] (replay)--(verify);
+\draw[->] (verify.north)--(evidence.south east);
+\end{tikzpicture}
+\caption{Operational conscious--subconscious cycle. Consolidation proposes work; verification controls the evidentiary status of what returns to memory. Arrows describe the architecture, not proof that every deployment completes every stage.}
+\label{fig:cycle}
+\end{figure}
+
+The surrounding system and the specialized Math Brain should be distinguished. The former includes broad memory, user context, operational reminders, and coordination. The latter isolates mathematical objects and verification rules. A comparison of the entire surrounding system against a minimal context measures a bundled intervention. It does not isolate the contribution of mathematical memory or any particular hook.
+
+\Needspace{6\baselineskip}
+\subsection{Memory layers}
+
+\begin{longtable}{p{0.20\linewidth}p{0.33\linewidth}p{0.39\linewidth}}
+\caption{Memory layers and their computational purpose. Sources: \citep{broadarchitecture,matharchitecture,consciousness,canonical}.}\\
+\toprule
+Layer & Representation & Function and evidentiary boundary\\
+\midrule
+\endfirsthead
+\toprule Layer & Representation & Function and evidentiary boundary\\ \midrule
+\endhead
+Episodes and history & Session records, prompts, prior revisions & Recover what happened. An utterance is evidence that it was made, not that it was correct.\\
+Reusable memory & Dated topic records with descriptions and metadata & Preserve methods, decisions, rationale, and corrections across contexts.\\
+Navigation & Indexes, topic maps, links, backlinks & Find the relevant record without loading the whole archive.\\
+Salience & Recency, curation, type, graph centrality, consequence scores & Allocate attention. High importance does not raise truth status.\\
+Mistakes and scars & Failure mechanism, minimal failing step, repair, counterexample & Preserve negative knowledge and prevent a refuted route from being rediscovered as new.\\
+Instincts and reflexes & Cue, ordered checks, required evidence, stop condition & Turn a lesson into a targeted action at the time it matters.\\
+Mathematical objects & Definitions, claims, examples, lemmas, conjectures, proof attempts & Preserve quantifiers, hypotheses, constants, regimes, and exact dependencies.\\
+Evidence & Calculations, proof artifacts, citation locators, formal receipts & Support a particular claim revision at a stated scope.\\
+Consolidation & Review agenda, gists, link proposals, counterexample tasks & Compress and connect records; proposed content remains subject to verification.\\
+Coordination & Leases, identities, handoffs, current work & Identify present ownership and progress. This state is distinct from durable mathematical knowledge.\\
+\bottomrule
+\end{longtable}
+
+This layering addresses different failure modes. Episodic history prevents a summary from erasing the reason for a correction. Typed mathematics prevents a theorem from losing an essential hypothesis. Scar memory prevents a counterexample from becoming an inaccessible footnote. Navigation and salience keep useful material accessible under a finite context. Coordination reduces duplicated effort but cannot certify the mathematics produced by the workers.
+
+\subsection{Hooks and delivery}
+
+A hook is a program invoked at a lifecycle event. The inspected settings route session start, prompt submission, pre-tool activity, post-tool activity, and session termination to appropriate handlers. A wake routine supplies continuity at session start. Prompt hooks can surface a relevant memory or mathematical card. Pre-tool hooks can warn before an action with a known failure mode. Post-tool hooks observe errors or co-read memories. Stop hooks retain unresolved obligations and continuation information \citep{dispatcher,wake,instincts,mathsense,proofhooks}.
+
+These event boundaries are useful because the same information has different value at different times. A warning about a denominator is useful immediately before division; a warning about an unproved exchange of limits belongs near the limiting argument; a reminder to bind a proof to its source revision belongs near verification and publication. Repeating every warning in every prompt wastes context and can reduce attention to the relevant one.
+
+The source records a concrete delivery limit: 646 of 1,009 prompt merges in one historical interval exceeded an inline bound, with a median payload near 53 KB. The revised dispatcher uses a 9,800-character inline allocation and retains overflow separately. Its water-filling policy preserves short messages and shortens large ones to available shares. Wake output is divided into two bounded parts \citep{dispatcher,wake}. These are character budgets, which must not be reported as model-token counts without a specified tokenizer.
+
+The pipeline must be evaluated at successive boundaries: stored, indexed, retrieved, emitted, delivered, acted on, and outcome verified. Passing an early boundary does not establish the later ones. The mathematical-card hook illustrates the importance of this distinction. Its September 22 source diagnosis records 710 silent real-session invocations between September 15 and 22 because NumPy was unavailable under the dispatcher's invocation mode, while ordinary-Python harness tests served cards. A source repair was added. This supports a documented deployment-path failure and repair; current end-to-end recovery still requires an observed delivery record \citep{mathsense}.
+
+\input{sections/02_update}
+
+\subsection{Salience and memory precedence}
+
+The implemented salience rule combines recency and persistence using a noisy-OR form:
+\begin{align}
+R_i &= \exp(-a_i/\tau),&
+P_i &= 1-\prod_j(1-c_{ij}),&
+S_i &= 100\bigl[1-(1-R_i)(1-P_i)\bigr].
+\label{eq:salience}
+\end{align}
+Here $a_i$ is age in days, and the components $c_{ij}\in[0,1]$ encode such signals as curation, backlinks, record type, and lexical consequence. The default recency parameter in the inspected code is $\tau=1.3$ days, with a rollback option to an earlier 45-day parameter. Example component values include 0.80 for curation and type priors of 0.90 for feedback/user records, 0.16 for reference records, and 0.07 for project records. Supersession reduces priority while preserving history \citep{salience}.
+
+The shape gives an enduring record a persistence floor even when its recency fades. These bounded scores are ranking heuristics, not calibrated probabilities of truth. Their historical calibration used 1,391 deliberate recall reads over 26 days, joined to 2,523 creation dates. Reported rates decrease sharply for new memories and then flatten, with a nominal short timescale of 1.3 days and a much slower tail. The study itself notes that observed reads depend on the existing retrieval policy \citep{recency}. Thus the fitted curve estimates use under that policy; it is not an intrinsic forgetting law.
+
+An audit also found a mismatch between the salience parameter and the legacy precedence classifier. A fixed recency threshold of 0.72, documented under $\tau=45$ days, corresponds under $\tau=1.3$ to an age of $-1.3\log(0.72)\approx0.427$ days. A threshold of 0.40 corresponds to about 1.191 days. Eligible short, uncurated project memories could therefore be demoted much sooner than the older comments imply. Curation and other exception paths limit the affected set \citep{consciousnesscode,salience}. This is an example of parameter coupling that a formal dynamics model can make explicit.
+
+\subsection{Associations and pattern recognition}
+
+Co-reading provides one association signal. The inspected fold procedure keeps at most 40 distinct memories per session. A fold decays existing weights by 0.98 and adds $\min(1,6/n_s)$ to a co-read pair from a session containing $n_s$ memories, followed by a pruning floor. It uses stable identities and receipts to avoid replaying the same fold as fresh evidence \citep{coactivation}. The decay is event-based. A busier fleet can therefore change the wall-clock retention rate even if the same decay parameter remains in the code.
+
+The live general association hook performs two hops of degree-normalized propagation. In a source-faithful abstraction, an edge contribution is
+\[
+f_{i\to j}^{(h+1)}
+=0.5\,a_i^{(h)}
+\frac{w_{ij}}{\sum_k w_{ik}}
+(1+0.4s_j)\gamma_j,
+\]
+where $s_j$ is a severity signal and $\gamma_j$ is a possible topic gain. Repetition controls, salience thresholds, winner margins, supersession routing, and near-duplicate suppression determine whether a candidate is shown. Its trace retains the contributing bridge \citep{spread}. Multiplying every outgoing weight at a node by the same positive constant leaves its normalized transition probabilities unchanged. More stored edge weight is consequently not, by itself, more effective retrieval.
+
+Mathematical retrieval adds notation-normalized tokens, alpha-renamed formula fingerprints, and typed graph edges. Normalization helps match different variable names; it is not a theorem that two expressions are mathematically equivalent. An optional semantic channel uses normalized embedding vectors and positive standardized cosine scores. The live mathematical-card hook also uses lexical prefiltering and compact rendering, and labels population-store cards with their secondary or unverified provenance \citep{mathretrieval,semantic,mathsense}.
+
+The system makes a valuable distinction between \emph{discovery} and \emph{proof dependency}. Discovery may traverse analogy and semantic similarity. A proof must identify exact assumptions and directed premises. The exact dependency-closure routine follows only the designated dependency edges and rejects missing nodes or cycles. Negative edges such as refutations receive positive visibility but retain a negative evidentiary meaning. A nearby counterexample should be easy to find without being mistaken for support \citep{matharchitecture}.
+
+\subsection{Scars, instincts, and calibrated warnings}
+
+A scar is a persistent record of a failure and its generating condition. An instinct is a compiled cue-to-check policy. The mathematical mistake schema includes the claim, failure class, minimal bad step, cause, repair, affected assumptions, and optional counterexample. Its reflex schema adds activation cues, ordered checks, required evidence, and an explicit stopping condition \citep{mistakes,triggers}.
+
+Examples include requiring a nonzero denominator, checking a sign after squaring, naming the convergence theorem before exchanging limits, writing quantifiers and their negations, and distinguishing a finite computation from a universal argument. A useful scar says why a step fails and when that reason applies. A vague instruction to be careful has little diagnostic value.
+
+Warnings can also be harmful. They can interrupt a sound proof, retrieve an analogy whose hypotheses differ, or cause an agent to reject a valid argument because it resembles an old failure. The broad instinct layer ranks and limits warnings, records the triggering channel, and suppresses repeated delivery \citep{instincts}. In an internal study of 91 corrections, graph clustering produced groups whose modularity was not unusual under a degree-preserving null (reported $z\approx-0.9$). Those groups can organize records without constituting established natural classes of mistakes \citep{mistakegraph}.
+
+\subsection{Familiarity, forecasts, and self-monitoring}
+
+The feeling-of-knowing probe searches descriptions and filenames before reading complete memory bodies. It uses distinctive terms, bounded typo correction, and a cluster threshold, with salience as a secondary ranking signal. Its appropriate interpretation is that the corpus appears to contain relevant material. It is not evidence that the model knows a theorem or can prove it. The inspected probe is expressly silent on mathematical arguments, leaving that task to specialized proof routing \citep{fok}.
+
+The forecasting component stores dated probabilities and resolves them against observed outcomes. It uses Brier loss $(p-o)^2$ and realized self-information $-\log_2 p_o$. A per-scope hit rate is shrunk toward a global base rate $g$ as $(h+4g)/(n+4)$, with small samples marked provisional \citep{prediction}. These scores can evaluate forecasts about runtime reliability or a task outcome. They are not proof probabilities for mathematical theorems.
+
+The architecture also uses signals described as affect, charge, surprise, danger, or conscience. Their operational roles are attention, routing, rechecking, persistence, and stopping. This separation matters: a high-consequence failure may warrant stronger review without making the remembered factual claim more probable. Repeated surprise can justify examining an alternative model; it cannot determine a theorem's truth by itself \citep{broadarchitecture,canonical,reconsolidation}.
+
+\subsection{Consolidation and coordination}
+
+The general system uses background agendas and model-assisted synthesis to produce gists, links, and review tasks. The mathematical package imposes a stricter boundary: its deterministic consolidation function returns quarantined proposals. Contradictions, missing evidence, reflex rehearsal, isolated nodes, and hub review receive explicit priorities. Analogy proposals use abstract mathematical structure, but cannot promote themselves to verification evidence \citep{consolidation}.
+
+The agent mesh separately tracks identities, leases, current tasks, messages, and acceptance of handoffs. Durable lessons pass through a memory-writing interface; routine activity remains transient coordination. A separate global-workspace component has source and design documentation, but its wiring record still reports an uncompleted integration gate. Current broadcast deployment is therefore not established by those files \citep{mesh,globalworkspace}.
+
+The current mathematical repository describes itself as a coordination archive and explicitly does not claim native ingestion of newly produced research across all scheduled runtimes. This is compatible with historical experiments using a local populated store. Version, corpus, runtime, and delivery evidence must therefore accompany any assertion that an agent was connected to Math Brain \citep{mathreadme}.

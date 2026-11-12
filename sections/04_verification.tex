@@ -1,0 +1,58 @@
+\section{Lean, algorithms, and mathematical audits}
+\label{sec:verification}
+
+\subsection{The division of responsibility}
+
+Memory helps a mathematical audit by recovering relevant definitions, theorem hypotheses, earlier failures, and precise source locations. The model still has to decide whether they apply. Numerical tools test examples and find counterexamples; symbolic tools establish identities within their domains; Lean checks an encoded statement against its formal dependencies; a fidelity review compares that statement with the intended mathematics. These activities support different conclusions \citep{leanref,leanarchitecture}.
+
+For example, a finite search can refute a universal statement by finding one valid counterexample. A finite search with no counterexample proves a universal claim only if it exhausts the admissible domain or a complete reduction to that search is established. A failed Lean tactic can reflect an unavailable lemma, syntax error, timeout, or poor proof search; it does not refute the target theorem. A successful Lean proof can establish a weaker or different theorem than the prose if the translation is wrong.
+
+The archive's specialized proof hook converts recurring failure types into a small audit packet. It selects cues involving named-theorem applicability, inequality direction, quantifiers, constants, load-bearing assumptions, and limiting targets, and produces a step inventory. It limits repeated delivery and explicitly warns that retrieved notes themselves require applicability checks \citep{proofhooks}. This is a direct operational example of subconscious-to-conscious transfer: previous errors determine what the next audit is prompted to inspect.
+
+\subsection{The isolated mathematical authority}
+
+The isolated package has an unusually strict formal-verification path. Its inspected project pins Lean 4.30.0 and accepts a narrowly defined local source graph. It stable-reads and snapshots source bytes, uses a direct pinned executable, compiles in dependency order, records exact declaration names, and binds source, toolchain, execution, and output identities. The authority route requires canonical axiom reports for the named declarations and an empty reported axiom set \citep{leanarchitecture,leanimplementation}.
+
+This policy is stricter than common Mathlib use. It is therefore misleading to merge the package's rule with every research companion and call the whole project an axiom-free Lean system. The package's own small formal library contains three elementary natural-number controls. Those controls exercise the verification mechanism; they are not a formalization of the research programme \citep{leannatural,leancontrols}.
+
+The package separates automated kernel evidence from formalization-fidelity evidence. The latter records review of quantifiers, domains, definitions, assumptions, conclusions, boundary cases, and extra assumptions. The records are bound to exact claim and source revisions. Cryptographic receipts can bind those fields to an issuance path, but do not make an inaccurate human translation correct. Imported peer reports remain discovery material until the appropriate local verification path supplies evidence \citep{leanimplementation,matharchitecture}.
+
+\subsection{The broader Mathlib checker}
+
+The surrounding brain has a different checker using a local Mathlib project. Its parser permits the conventional Lean axioms \code{propext}, \code{Classical.choice}, and \code{Quot.sound}, while rejecting placeholders such as \code{sorryAx} and custom axioms. Its receipt retains an unverified translation-fidelity field. This path supplies valuable formal evidence, but its assurance conditions differ from those of the isolated package \citep{leanbroad,leanparser}.
+
+The distinction can be expressed as three questions. Did the intended executable check the exact source? What proposition and assumptions did it check? Does that proposition faithfully express the research claim? The first is execution provenance, the second formal correctness, and the third semantic fidelity. A rigorous audit records all three.
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabularx}{\linewidth}{p{0.25\linewidth}rYY}
+\toprule
+Inspected companion & Named reports & Checked content & Remaining scope\\
+\midrule
+Free unimodality & 13 & Polynomial/rational identities, profile bounds, equality cases & Probability measures, free convolution, parametrization, full theorem\\
+Arc-transitive graphs & 17 & Blow-up arithmetic, cycle sums, hitting-mass formulas & Identification with stochastic quantities and graph hypotheses\\
+Degree counts & 17 & Stage arithmetic, mass and centering bounds, exponent identities & Full conditional probability argument and limiting statement\\
+Bernoulli convolution & 25 & Separate seven-file summary of conditional algebra/analysis & One-copy absolute continuity and the unresolved contraction step\\
+\bottomrule
+\end{tabularx}
+\caption{Representative formal evidence. Counts are distinct named declarations in inspected axiom-report records, not counts of solved problems or necessarily every declaration in the files. The first three total 47. Sources: \citep{freelean,arclean,degreelean,bc23lean}.}
+\label{tab:lean}
+\end{table}
+
+These companions show a practical use of formalization even when an entire research proof is not encoded. A delicate coefficient identity or polynomial inequality can be isolated and checked. That removes one class of algebraic uncertainty and allows the informal review to focus on measure-theoretic hypotheses, conditioning, limiting arguments, and interpretation. The value comes from knowing which part was checked.
+
+\subsection{Environment-specific integration}
+
+Inspected scheduled records from September 21 report missing Lean and mathematical-package dependencies in several Linux accounts. Some records show zero of three genuine formal controls completed while a synthetic containment or executable-transport test passed. The production POSIX lease in the inspected isolated implementation also marks executable locking as unenforced, which prevents authority eligibility under its own rules \citep{leanblocked,leanimplementation}.
+
+These are dated, environment-specific observations. They coexist with successful research-companion build logs elsewhere. They justify neither a claim that Lean never worked nor a claim that all workers were fully connected. A formal-system audit must identify the machine or runtime, exact toolchain, source revision, named declarations, dependency assumptions, and receipt.
+
+For this paper, 11 local receipt-parser controls and a proof-hook routing check with one positive and two negative inputs were run successfully. These checks test parsing and routing. A Lean executable was unavailable in the review environment, so the historical kernel checks were inspected rather than rerun. The reproduction supplement records that boundary.
+
+\subsection{A complete audit workflow}
+
+A useful workflow begins with an exact mathematical statement and an obligation inventory. Each obligation receives an appropriate check, and each check records its scope. A proof that depends on an external theorem retains that theorem's source, statement, and hypotheses. A counterexample is stored with admissibility conditions. A formalization retains its informal counterpart and any extra assumptions. A correction creates a new revision and triggers review of dependent derivations.
+
+Independent review is strongest when the reviewer reconstructs a load-bearing step from the original assumptions or uses a different method. Several agents repeating the same derivation can detect typographical errors, but agreement does not eliminate a shared conceptual mistake. Likewise, a majority vote is a record of opinions, not a proof. The architecture's evidence graph is useful precisely because it can preserve the source of each review instead of reducing all agreement to one confidence score \citep{canonical,matharchitecture}.
+
+Memory supports this workflow through continuity and targeting. It can warn that a previous argument reversed an inequality, that a formal lemma assumed the desired conclusion, or that a conditioning step destroyed independence. The audit must then test the warning against the current argument. A sound use of scars is to focus attention on a possible failure, followed by a mathematical decision.

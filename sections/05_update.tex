@@ -1,0 +1,39 @@
+\subsection{Newly committed evidence: a four-arm context-use study}
+\label{sec:t11-update}
+
+The updated repository snapshot adds a four-arm study of operational instruction following (T11), separate from the 45 earlier reported contrasts. It does not add a completed mathematical benchmark. Ten film-pipeline tasks were answered by one Opus 5.5 agent per arm; each agent answered all ten tasks. The endpoint awards one point per credited standing-order key and subtracts one per listed violation. There are 35 available key points across the ten tasks. Consequently the numbers in Table~\ref{tab:t11-update} are net rubric scores, not counts of fully correct tasks. All keys were selected from the hourly context block and reportedly absent from the two baseline READMEs \citep{benchmark_update_t11_prereg,benchmark_update_t11_result}.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{T11: one solver session per arm, ten tasks, two sets of masked grades. Token counters are approximate source reports with no recovered category-complete receipt.}
+\label{tab:t11-update}
+\begin{tabularx}{\textwidth}{@{}lYrrr@{}}
+\toprule
+Arm & Supplied context & Primary & Second judge & Tokens \\
+\midrule
+R & Two film READMEs & 18 & 15 & $\sim197$k \\
+M0 & READMEs plus mechanical top-five recall for each task & 24 & 21 & $\sim223$k \\
+M1 & READMEs plus recall after the full-description snippet change & 25 & 22 & $\sim217$k \\
+B & READMEs plus the hourly film prompt block & 35 & 33 & $\sim311$k \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The published masked cells reproduce all eight arm totals under the published deterministic shuffle: seed 20260923, the declared four-arm order, and the ten sorted task identifiers. The original frozen arm map is unavailable, so this is an arithmetic reconstruction using the published procedure. It is not independent regrading of the answers. The two judges agree on exactly 32 of 40 task-arm cells, with a mean absolute difference of 0.275 points; five disagreements are one point and three are two points \citep{benchmark_update_t11_grades,benchmark_update_t11_judge2,benchmark_update_t11_mask}.
+
+The hourly block exceeds ordinary recall by 11 points for the primary judge and 12 for the second judge. Recall exceeds the README baseline by six points under both judges. These differences satisfy the corresponding preregistered thresholds of six and three points. Extending the displayed snippets adds only one point under each judge, below its preregistered two-point threshold. The study therefore demonstrates useful application of explicitly supplied local instructions in this task bundle, while identifying a limitation of the tested retrieval-and-display policy. It does not establish that adding more context generally improves mathematical inference \citep{benchmark_update_t11_prereg,benchmark_update_t11_result}.
+
+Several qualifications change the interpretation. The recall arms received mechanically retrieved snippets and were not permitted to open the returned memories; an ordinary working agent may do so. The block contains all scoring keys by construction. Four solver sessions supply only one replication per arm, and shared task sources prevent treating the 35 keys as independent deployments. The records describe both grading passes as masked, with no final adjudicated merge located. Their timing metadata require reconciliation: the result report says the first grades were frozen at 19:41:23, whereas the grade file says they were written at 19:5x while still masked. The preregistration text matches its published SHA-256 stamp, but that does not resolve the grading chronology \citep{benchmark_update_t11_result,benchmark_update_t11_grades,benchmark_update_t11_stamp}.
+
+The reported counters imply approximately 88,000 additional tokens for B versus M0, or about 1.395 times M0's counter. Their uncached input, cache reads, cache writes, output, and monetary cost are unavailable. These figures therefore cannot be converted into a full cost comparison or combined directly with earlier category-complete receipts. Newly committed evidence also need not describe newly performed trials: T11's ledger event is dated 19:55 at UTC+03:00, while its files entered the repository in the 19:07 UTC commit \citep{benchmark_update_t11_result,benchmark_update_round6_landed}.
+
+\subsection{T12: successful routing remains distinct from successful use}
+\label{sec:t12-update}
+
+T12 follows T11 by pinning a hub of film instructions for matching queries. The source reports the hub among the top five results on 24 of 24 source-designated held-out film prompts, compared with zero without the pin; on the reused ten T11 tasks, the corresponding counts are ten and five. Twenty prompts selected from non-film labels conditional on not triggering reportedly return byte-identical lists. These are retrieval endpoints. The result file explicitly says that the agent-level comparison between the pinned hub and the hourly block has not yet run \citep{benchmark_update_t12_result,benchmark_update_t12_compare}.
+
+The stated 62-query total includes 54 queries in those named strata. The harness also appends up to eight firing prompts filed outside the film topic, reconciling the total, but no subgroup outcome summary is published for those extra probes. The specific result report says that the remaining list is unchanged on 23 of 24 held-out film prompts and all ten T11 tasks; the broader implementation ledger's unqualified unchanged-list wording is too strong. Raw comparison rows and held-out prompts remain outside the committed artifacts, and the source does not establish an untouched holdout after pin development \citep{benchmark_update_t12_result,benchmark_update_t12_compare,benchmark_update_round6_landed}.
+
+On 8,000 historical prompts, the reported trigger counts are 765/1,213 filed under films and 65/6,787 filed elsewhere: 63.07\% and 0.958\%, respectively. The film-labeled share of all 830 triggers is 92.17\%. Topic labels are proxy labels, and the report itself says many apparent non-film hits were misfiled film prompts; this fraction is not adjudicated precision. The policy-routing regression additionally reports ten positive controls at rank one and 31 negative controls with neither canonical policy node in the top eight. No corresponding round-six regression row log was located. These findings support routing reliability under the tested conditions, while leaving downstream compliance and cost savings to the unfinished agent test \citep{benchmark_update_t12_result}.
+

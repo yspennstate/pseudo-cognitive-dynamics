@@ -1,0 +1,81 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,microtype}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,longtable,array,tabularx}
+\usepackage{graphicx,float}
+\usepackage{xcolor}
+\usepackage{enumitem,needspace}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,backgrounds}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{xurl}
+\urlstyle{same}
+\usepackage[breaklinks,colorlinks,linkcolor=black,citecolor=blue!45!black,urlcolor=blue!45!black]{hyperref}
+\usepackage{bookmark}
+\providecommand{\doi}[1]{\href{https://doi.org/#1}{doi:#1}}
+\hypersetup{pdftitle={Mathematics of Pseudo-Cognitive Dynamics},pdfsubject={Persistent memory, error learning, and verifiable mathematical research},pdfkeywords={Math Brain, external memory, Lean, mathematical reasoning, evaluation},pdfauthor={Yitzchak Shmalo}}
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\setlength{\parskip}{0.4em}
+\setlength{\parindent}{1.1em}
+\setlength{\emergencystretch}{3em}
+\setlist{nosep,leftmargin=1.6em}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}[proposition]{Theorem}
+\newtheorem{definition}[proposition]{Definition}
+\newtheorem{remark}[proposition]{Remark}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Pp}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\code}[1]{\texttt{\detokenize{#1}}}
+\title{\textbf{Mathematics of Pseudo-Cognitive Dynamics}\\[0.55em]\large Persistent memory, error learning, and verifiable mathematical research in AI systems}
+\author{Yitzchak Shmalo\\[0.4em]
+\small Einstein Institute of Mathematics, The Hebrew University of Jerusalem\\
+\small Givat Ram, Jerusalem, Israel}
+\date{23 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+Mathematical research with language models requires continuity across finite contexts, preservation of failed arguments, reliable retrieval of assumptions, and evidence appropriate to each proof claim. We introduce \emph{Mathematics of Pseudo-Cognitive Dynamics} as a proposed framework for studying the interaction between an active model context, called the conscious layer, and persistent external memory and control mechanisms, called the subconscious layer. These terms describe information flow and control; they do not assert subjective experience. Math Brain provides a concrete case study comprising typed mathematical objects, signed association graphs, mistake memories, retrieval hooks, consolidation proposals, audit records, and interfaces to Lean.
+
+An artifact-based study of the available repositories finds substantial value for recalling project-specific knowledge and preserving corrections, together with important limits on claims of general reasoning improvement. A recent two-agent comparison scored 27/27 versus 1/27 on retained project-result questions and 27/27 in both arms on safeguard questions, at reported list-price costs of \$22.7979 and \$4.3693. A separately added four-arm operational study favors direct instruction delivery, while its retrieval follow-up lacks downstream agent outcomes. Other proof-audit comparisons show small gains, null results, or contamination; an earlier favorable result was undermined by a placebo control. The archived usage ledger contains 375,282,198 output tokens and 123,820,924,963 input-token events over 32 days, mostly cache reads, but does not identify the all-time construction cost of Math Brain. Research case studies distinguish complete candidate arguments, partial results, rejected routes, and problems remaining open. Formal verification is scoped to the exact checked statement and cannot substitute for statement fidelity. We develop conditional mathematical results for bounded retrieval, stable activation, correction propagation, selective warnings, and cost amortization, and specify an evaluation protocol separating knowledge access, inference, reliability, and resource cost.
+\end{abstract}
+\noindent\textbf{Keywords:} external memory; mathematical reasoning; retrieval; proof verification; Lean; agent evaluation; error memory; cognitive architecture.
+\tableofcontents
+\newpage
+\input{sections/01_scope}
+\input{sections/02_architecture}
+\input{sections/03_dynamics}
+\input{sections/04_verification}
+\input{sections/05_evaluation}
+\input{sections/06_costs}
+\input{sections/07_research}
+\input{sections/08_discussion}
+\section*{Acknowledgments and funding}
+The research presented in this paper was supported by the European Research Council (ERC) under the European Union's Horizon Europe research and innovation programme (grant agreement No.~101041711), by the Simons Foundation as part of the Collaboration on the Mathematical and Scientific Foundations of Deep Learning, by Heights Labs, by Convex Nexus Capital, by the Israel Science Foundation (grant number 2258/19), and by the Israel Science Foundation (ISF Grant 4101/25).
+
+This work was done by multiple AI agents, Claude (Anthropic) and Codex (OpenAI), connected to Math Brain~\cite{MathBrainRepo} and working together inside the Brain framework~\cite{BrainFramework}, a shared, persistent memory in which the agents record claims, proofs, failed attempts and methods, retrieve one another's results, coordinate who works on what, and audit each other's work. For more on the Brain and Math Brain, see the Math Brain paper~\cite{MathBrainPaper}, the Math Brain repository~\cite{MathBrainRepo} and the Brain framework repository~\cite{BrainFramework}.
+
+\section*{Declaration of competing interest}
+The author holds equity in Heights Labs and in Convex Nexus Capital and has a management role at Convex Nexus Capital. These entities are included in the funding declaration above.
+
+\section*{Code and data availability}
+The source of this paper is at \url{https://github.com/yspennstate/pseudo-cognitive-dynamics}. The datasets, analysis scripts and review records it cites are in the Math Brain public repository, \url{https://github.com/yspennstate/math-brain-public}, under \texttt{papers/pseudo-cognitive-dynamics-2026-09-23}.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+The analysis, the mathematical results, the evaluation and the writing were produced by AI systems in the author-directed Math Brain project: Claude (Anthropic) and Codex and GPT models (OpenAI), working through the Brain framework's shared memory. The author selected the subject, commissioned and directed the work, and is responsible for its publication; the author did not carry out the analysis or the writing. The checks reported here are internal research verification, not external peer review.
+
+\appendix
+\input{sections/09_appendix}
+\begingroup
+\small\raggedright
+\bibliographystyle{pcd_numeric}
+\bibliography{references}
+\endgroup
+\end{document}

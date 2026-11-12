@@ -1,0 +1,203 @@
+\section{A mathematical framework for pseudo-cognitive dynamics}
+\label{sec:dynamics}
+
+This section formalizes the architecture and derives consequences under stated assumptions. Some equations describe implemented rules; other operators are proposed abstractions. None of the propositions establishes an empirical improvement in mathematical ability. Their purpose is to make budgets, stability, evidence flow, and possible failure modes explicit.
+
+\subsection{State, retrieval, and external learning}
+
+\begin{definition}[Pseudo-cognitive state]
+At event time $t$, let
+\[
+Z_t=(C_t,M_t,W_t,G_t,L_t).
+\]
+Here $C_t$ is the active context, $M_t$ the persistent memory records, $W_t$ an association graph, $G_t$ the mathematical claim and evidence graph, and $L_t$ an append-only event and resource ledger. The context has serialized token length $\ell(C_t)\leq B$. A memory record contains content, applicability conditions, provenance, a revision identifier, and an evidence state.
+\end{definition}
+
+An event $e_t$ may be a question, tool result, error, checkpoint, or scheduled review. A hook generates a query and available memory budget. Retrieval and packing give
+\[
+q_t=H(e_t,C_t),\qquad
+R_t=\mathcal{R}(q_t,M_t,W_t,G_t;b_t),\qquad
+\widetilde C_t=\operatorname{Pack}_{B}(C_t,R_t).
+\]
+The model generates an action $a_t\sim\pi_\theta(\,\cdot\mid\widetilde C_t)$; observations and checks then update external state:
+\[
+(M_{t+1},W_{t+1},G_{t+1},L_{t+1})
+=U(Z_t,e_t,R_t,a_t,y_t,V(y_t)).
+\]
+In this model $\theta$ is fixed. Learning occurs through external records, associations, retrieval policies, and procedures. External learning and model-weight training are different resource and attribution categories.
+
+A retrieval budget should include the serialized wrapper and metadata, not only the body of a memory. If mandatory context has length $m_t$ and response reserve $o_t$, the available budget is $b_t=B-m_t-o_t$. It exists only when this quantity is nonnegative. A packing operator that accepts a block only after checking the length of the full resulting serialization preserves $\ell(\widetilde C_t)+o_t\leq B$ by induction over accepted blocks. This simple invariant prevents silent budget overflow; it says nothing about the quality of what was retained.
+
+\subsection{Salience is bounded and saturating}
+
+\begin{proposition}[Noisy-OR salience]
+For $c_1,\ldots,c_m\in[0,1]$, let
+$F(c)=1-\prod_{j=1}^m(1-c_j)$. Then $F\in[0,1]$, is coordinatewise nondecreasing, and the increment from adding a further component $d\in[0,1]$ is
+\[
+F(c_1,\ldots,c_m,d)-F(c_1,\ldots,c_m)
+=d\prod_{j=1}^m(1-c_j).
+\]
+This increment decreases when any existing component increases.
+\end{proposition}
+\begin{proof}
+Every factor $1-c_j$ lies in $[0,1]$, proving the bounds. Increasing a component decreases the residual product. The displayed identity follows by factoring that product, and proves the final assertion.
+\end{proof}
+
+Equation~\eqref{eq:salience} is of this form, with recency as an additional component and a scale factor of 100. A union-probability interpretation would require suitable independence assumptions; the ranking rule does not supply them. In particular, backlinks, repeated reading, and curation can be correlated consequences of the same original attention. Treating their combined salience as independent verification would count the same evidence repeatedly.
+
+\subsection{Association growth and time}
+
+\begin{proposition}[Forgetting with bounded reinforcement]
+Let $w_{t+1}=\rho w_t+\eta_t$, where $0\leq\rho<1$, $w_0\geq0$, and $0\leq\eta_t\leq K$. Then
+\[
+w_t=\rho^tw_0+\sum_{j=0}^{t-1}\rho^{t-1-j}\eta_j
+\leq \rho^tw_0+K\frac{1-\rho^t}{1-\rho}.
+\]
+\end{proposition}
+\begin{proof}
+Repeated substitution gives the equality. Bounding each reinforcement by $K$ and summing the geometric series gives the inequality.
+\end{proof}
+
+For a single-session reinforcement bounded by one and decay $\rho=0.98$, the limiting bound is 50. If a fold processes several sessions, $K$ must bound their total contribution; one must not apply the single-session numerical bound to an arbitrarily large batch. Pruning can reduce the bound but does not establish a fixed wall-clock forgetting rate.
+
+Suppose an unreinforced weight undergoes $N(T)$ folds during a physical interval of length $T$. Its value becomes $\rho^{N(T)}w_0$. Thus two fleets with different fold counts forget at different rates even under identical parameters. A proposed time-normalized alternative is
+$w(t+\Delta)=e^{-\lambda\Delta}w(t)+\eta(t,\Delta)$.
+This keeps the passive decay independent of event frequency, but the usefulness of either rule requires a matched comparison.
+
+\subsection{Stable activation under a sufficient condition}
+
+\begin{proposition}[Contractive activation]
+Let $P$ be a nonnegative matrix with every row sum at most one. Let $\sigma:\mathbb{R}^d\to\mathbb{R}^d$ be coordinatewise clipping to $[0,1]$. For fixed $b$ and $0\leq\alpha<1$, define
+\[
+T_b(a)=\sigma(\alpha Pa+b).
+\]
+Then $T_b$ has a unique fixed point $a^\ast(b)$, iterations converge to it, and
+\[
+\norm{a^\ast(b)-a^\ast(b')}_\infty
+\leq \frac{\norm{b-b'}_\infty}{1-\alpha}.
+\]
+\end{proposition}
+\begin{proof}
+Clipping is nonexpansive and $\norm{P}_\infty\leq1$. Therefore
+$\norm{T_b(a)-T_b(a')}_\infty\leq\alpha\norm{a-a'}_\infty$.
+The cube $[0,1]^d$ is complete, so the contraction theorem gives a unique fixed point and convergence. For two fixed points, the triangle inequality gives
+$\norm{a^\ast(b)-a^\ast(b')}_\infty
+\leq\alpha\norm{a^\ast(b)-a^\ast(b')}_\infty+\norm{b-b'}_\infty$.
+Rearranging proves the sensitivity bound.
+\end{proof}
+
+This is a sufficient-condition model, not a convergence theorem for every inspected hook. The actual two-hop rule contains severity and topic gains, which can destroy the stated row-sum bound; it also stops after a finite number of hops. The distinction is useful: a proposed indefinitely iterated activation process must control total gain, while a finite-depth search must control depth, candidate count, and score sensitivity.
+
+If all final candidate scores change by at most $\varepsilon$, a unique winner whose original margin exceeds $2\varepsilon$ remains the winner. Indeed, its decrease is at most $\varepsilon$ and a competitor's increase is at most $\varepsilon$. This elementary fact explains why explicit winner margins can stabilize retrieval, although it does not establish that the chosen memory is correct.
+
+\subsection{Selecting useful context under a budget}
+
+Consider a finite set of candidate cards and a task with a finite set of nonnegative-weight obligations $u\in\mathcal U$. A memory card $i$ is assigned coverage $a_{ui}\in[0,1]$. As a proposed approximation to useful coverage, define
+\[
+F(S)=\sum_{u\in\mathcal U}v_u\max_{i\in S}a_{ui},
+\qquad F(\varnothing)=0,\quad v_u\geq0.
+\]
+Repeated cards about the same obligation produce diminishing gains. This model does not include misleading cards or synergistic proofs requiring several premises simultaneously; those effects require a richer objective.
+
+\begin{proposition}[A standard greedy guarantee for the coverage model]
+For an integer $k\geq1$, repeatedly add a card of largest marginal increase in $F$, until $k$ cards have been selected or no candidate remains. Early stopping is also allowed when every remaining marginal gain is zero. If $S_g$ is the resulting set and $S^\ast$ maximizes $F$ among sets of size at most $k$, then
+\[
+F(S_g)\geq\bigl[1-(1-1/k)^k\bigr]F(S^\ast)
+\geq(1-e^{-1})F(S^\ast).
+\]
+\end{proposition}
+\begin{proof}
+The maximum for each obligation is nondecreasing as cards are added. Its marginal gain from adding a fixed card decreases as the selected set grows. Hence $F$ is monotone and submodular. At any step with selected set $S_j$, submodularity and monotonicity give
+$F(S^\ast)-F(S_j)\leq\sum_{i\in S^\ast\setminus S_j}
+[F(S_j\cup\{i\})-F(S_j)]$.
+There are at most $k$ terms. Greedy therefore gains at least
+$(F(S^\ast)-F(S_j))/k$. Iterating the resulting deficit inequality from $F(S_0)=0$ proves the first bound. The inequality $(1-1/k)^k\leq e^{-1}$ proves the second.
+\end{proof}
+
+This is the classical cardinality-constrained submodular argument \citep{nemhauser1978}, applied to a proposed context-selection model. It is not a new optimization theorem and not an established model of this system's real utility. It applies directly to equal-cost slots. Arbitrary token lengths create a knapsack constraint, for which the same simple cardinality proof does not apply. Harmful or complementary information can also violate monotonicity or submodularity. These limitations matter more than the attractive approximation constant.
+
+\subsection{Proof dependencies and correction propagation}
+
+\begin{proposition}[Compositional assumption tracking]
+Let a finite acyclic graph represent exact formal propositions. Suppose each node $v$ has a checked derivation of $P_v$ from its immediate premises and a recorded assumption set $A_v$. Then $P_v$ follows from the union of $A_u$ over the premise ancestors of $v$, including $v$.
+\end{proposition}
+\begin{proof}
+Order the graph topologically. At a node without premises, the conclusion follows from its own assumptions by hypothesis. At a later node, substitute the already established premise derivations into its checked derivation. The required assumptions are contained in its own set and the ancestor sets of its premises. Induction proves the claim.
+\end{proof}
+
+This standard composition principle clarifies why the memory representation must preserve hypothesis direction and statement identity. A formally checked implication containing the desired theorem as a hypothesis is still conditional.
+
+When a premise revision is refuted or withdrawn, the appropriate response is to flag the derivations that depend on that revision for revalidation. The smallest such set closed under downstream dependency is its reachable dependent set: reachability is closed, and any closed set containing the changed node must contain every node along each path. Marking that set does not prove all those conclusions false. Another proof may survive, a stronger premise may be unnecessary, or a replacement revision may repair the derivation. Revision-specific dependency tracking preserves those distinctions.
+
+\subsection{When a scar can help}
+
+Suppose a narrowly defined warning is relevant with probability $p$ on a specified task distribution. Conditional on relevance, it prevents a failure with probability $r$ and avoided loss $L$. On irrelevant cases it causes a harmful intervention with probability $f$ and loss $H$. If delivery has cost $c$ in the same utility units, its expected net value in this simplified model is
+\[
+V=prL-(1-p)fH-c.
+\]
+The warning is beneficial exactly when this expression is positive. This identity makes specificity, uptake, false alarms, and overhead separate measurable quantities. A count of delivered warnings does not estimate any one of them.
+
+\subsection{Selective warnings under a context budget}
+\label{sec:warningbudget}
+
+The single-warning value identity does not account for warnings that detect the same failures. A small decision model makes that interaction explicit. It concerns proof-audit verdicts, not theorem discovery, and its parameters are illustrative rather than fitted to the experiments.
+
+Let $V$ be the event that an audited proof is valid, with $\Pr(V)=\pi\in(0,1)$. Each candidate warning has an alert event $F_i$ on a common probability space. Assume that these events do not change when other cards are selected. For a selected set $S$, the auditor rejects the proof if any selected warning alerts, and otherwise accepts it. Thus a false alert can reflect an applicability mistake even when the stored warning is mathematically sound. Write $E_S=\bigcap_{j\in S}F_j^c$, with $E_\varnothing$ the entire sample space. The probability of a correct verdict is
+\[
+ A(S)=\pi\Pr(E_S\mid V)
+ +(1-\pi)\bigl[1-\Pr(E_S\mid V^c)\bigr].
+\]
+A correct audit verdict can be either acceptance of a valid proof or rejection of an invalid one.
+
+\begin{proposition}[Marginal value of an additional warning]
+For $i\notin S$, without any independence assumption,
+\begin{align*}
+ A(S\cup\{i\})-A(S)
+ ={}&(1-\pi)\Pr(E_S\cap F_i\mid V^c)\\
+ &-\pi\Pr(E_S\cap F_i\mid V).
+\end{align*}
+\end{proposition}
+\begin{proof}
+Since $E_{S\cup\{i\}}=E_S\setminus F_i$, subtracting the two expressions for $A$ gives the identity. The only verdicts that change are those on which all previous warnings remain silent and the additional warning alerts. On invalid proofs this change is a correction; on valid proofs it is an error.
+\end{proof}
+
+Consequently, a warning's detection rate on all invalid proofs is insufficient to determine its incremental value. It must detect failures missed by the selected warnings. A perfect duplicate of an existing alert has zero marginal accuracy. More strongly, if it detects no previously missed invalid proofs but creates a new false alert with positive conditional probability, its marginal accuracy is strictly negative. These statements allow arbitrary dependence among alerts under the stated common-response assumption.
+
+\begin{proposition}[Optimal count of interchangeable warnings]
+Suppose there are $N$ warning cards whose alerts are mutually independent conditional on $V$ and also conditional on $V^c$. Each has false-positive probability $f=\Pr(F_i\mid V)$ and detection probability $d=\Pr(F_i\mid V^c)$, where $0<f<d<1$. If every card has the same fully serialized token length $\tau>0$ and available memory budget is $b\geq0$, let $k=\min\{N,\lfloor b/\tau\rfloor\}$. Then selecting $n\leq k$ cards gives
+\[
+ A_n=\pi(1-f)^n+(1-\pi)\bigl[1-(1-d)^n\bigr].
+\]
+Define
+\[
+ t=\frac{\log\!\bigl((1-\pi)d/(\pi f)\bigr)}
+ {\log\!\bigl((1-f)/(1-d)\bigr)}.
+\]
+The smallest accuracy-maximizing feasible count is
+\[
+ n^\ast=\min\{k,\max\{0,\lceil t\rceil\}\}.
+\]
+If $t$ is a nonnegative integer and $t+1\leq k$, the adjacent count $t+1$ is also a maximizer.
+\end{proposition}
+\begin{proof}
+Conditional independence gives the two probabilities of silence as products, proving the formula for $A_n$. Subtraction gives
+\[
+ A_{n+1}-A_n
+ =(1-\pi)d(1-d)^n-\pi f(1-f)^n.
+\]
+Both terms on the right are positive before subtraction. Their ratio is
+\[
+ \frac{(1-\pi)d}{\pi f}
+ \left(\frac{1-d}{1-f}\right)^n.
+\]
+It strictly decreases with $n$, and equals one precisely when $n=t$. Thus the increments are positive for $n<t$, zero for $n=t$, and negative for $n>t$. Truncating the resulting maximizing count to the feasible interval $\{0,\ldots,k\}$ proves the claim, including its tie case.
+\end{proof}
+
+For example, take $\pi=4/5$, $d=4/5$, and $f=1/20$, with room for at least three cards. The correct-verdict probabilities for zero, one, two, and three warnings are respectively
+\[
+ 0.8000,\qquad 0.9200,\qquad 0.9140,\qquad 0.8843.
+\]
+Every warning improves accuracy when supplied alone, yet adding the second warning lowers accuracy. The earlier warnings have already detected most invalid proofs, while further warnings still create false rejections. In this example one card is optimal despite the larger available budget. The monotone coverage guarantee above therefore does not transfer to this audit objective. If the larger packet also has higher positive mean operating cost, the smaller packet has lower cost per correct verdict, using the common-population criterion in Section~\ref{sec:costs}.
+
+These are elementary probability calculations, not a new theorem about optimal inference. An evaluator allowed to ignore additional information can retain its former decision policy; the example instead concerns a specified response rule. Conditional independence, equal diagnostic quality, and fixed alert behavior are strong assumptions. Actual memory can alter interpretation, repair an argument, expose a new proof, or displace other context. A full-versus-diet comparison cannot identify the mechanism from packet size and final score alone. It should record which additional cards detect previously missed errors, which cause false rejections, and their delivery and verification costs. The model demonstrates one possible reason for selective delivery, without asserting that it explains an observed treatment contrast.
+

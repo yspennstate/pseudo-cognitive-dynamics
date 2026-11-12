@@ -1,0 +1,111 @@
+\subsection{Updated research evidence and proof scope}
+\label{sec:research-update}
+
+The refreshed research snapshot in Appendix~\ref{app:update} was committed on September 23, 2026 at 20:04:37 UTC. Its comparison with the earlier research snapshot contains 271 additional commits and 269 changed paths, all within QFORM. The intake queues are unchanged; their frozen catalogue counts remain valid at their original snapshot. The update below distinguishes newly supplied supporting arguments from clearer statements of earlier results. Repository publication, a memory summary, a written proof, and successful delivery to a later worker remain separate evidence \citep{CaseQFORMCurrentMain2026,CaseQFORMUpdateCompare2026}.
+
+\paragraph{Uniformity over matrices in each fixed dimension.}
+The current quadratic-form manuscript foregrounds a theorem already present in its earlier source:
+\begin{equation}
+ \norm{p_Q}_\infty\leq\frac{2\sqrt{6\pi n}}{s_3(S)},\qquad
+ Q=X^{\mathsf T}BX+b^{\mathsf T}X+c,\qquad
+ S=\frac{B+B^{\mathsf T}}2,
+ \label{eq:qform-fixed-dimension-update}
+\end{equation}
+for independent cap-one coordinate densities and $s_3(S)>0$.
+Here $s_3$ is the third largest singular value; for symmetric $S$, this is the third largest eigenvalue modulus.
+The bound is uniform over every matrix in the specified dimension at that spectral scale, every remaining eigenvalue, every affine term, and every admissible coordinate law.
+It is stronger than merely assigning an unspecified constant to each fixed matrix.
+Its dependence on $\sqrt n$ still leaves the dimension-independent indefinite conjecture open.
+The additional formulation for arbitrary real $B$ uses the identity $x^{\mathsf T}Bx=x^{\mathsf T}Sx$; a spectral hypothesis on $B$ itself would be wrong, since a full-rank skew-symmetric matrix can have identically zero quadratic form \citep{CaseQFORMCurrentMain2026,CaseQFORMCurrentStructure2026}.
+
+The projected-gradient proof also clarifies a valid use of projection estimates.
+Choose a three-dimensional spectral subspace $E$ at scale $\sigma=s_3(S)$, and put $g=P_E\nabla Q$ and $\ell_i=\norm{P_Ee_i}^2$.
+The identity $\nabla Q\cdot g=|g|^2$ partitions a nonnegative test-function integral into coordinate contributions.
+For coordinate $i$, a two-plane in $E\cap e_i^\perp$ depends only on the other original coordinates.
+Their unconditional projection has density at most two, and hence its inverse-distance expectation is at most $2\sqrt{2\pi}$.
+A scalar quadratic has at most two inverse branches; summation and $\sum_i\sqrt{\ell_i}\leq\sqrt{3n}$ give \eqref{eq:qform-fixed-dimension-update}.
+This argument preserves the original product structure at the required integration step.
+It does not require a uniform cap on a rotated conditional density.
+The updated wording clarifies the old theorem's quantifiers; it records no new improvement of this bound \citep{CaseQFORMCurrentStructure2026}.
+
+\paragraph{An estimate that survives dependent shifts.}
+A newly added note studies an independent hub $H$ with density at most one and an arbitrary random triple $(L,V,P)$.
+Assume only that $(L,V)$ has joint density $g\leq M$.
+For any measurable real-valued $u(L,P)$, set $Z=L[H+u(L,P)]$.
+The note proves that $(Z,V)$ has a density $k$ satisfying
+\begin{equation}
+ \norm{k}_{L^2(\mathbb R^2)}^2\leq4M.
+ \label{eq:qform-shift-l2-update}
+\end{equation}
+Thus $u=\beta L/2+\varepsilon P$ retains both the quadratic term $\beta L^2$ and leakage through a third light projection, including its dependence on $(L,V)$.
+The constant four is sharp when $M=1$ \citep{CaseQFORMShiftL2_2026}.
+
+The analytic mechanism is short enough to check directly.
+The overlap integral of two shifted, rescaled hub densities is at most $\min(|l|,|l'|)$, independently of both shifts.
+After expanding the density square and applying Tonelli, the remaining kernel is $1/\max(|l|,|l'|)$.
+For fixed $v$, let $m(v)=\int g(l,v)\,dl$ and $F_v(r)=\int_{|l|\leq r}g(l,v)\,dl$.
+The bound $F_v(r)\leq\min(m(v),2Mr)$ gives
+$\int_0^\infty F_v(r)^2r^{-2}\,dr\leq4Mm(v)$; integration in $v$ proves \eqref{eq:qform-shift-l2-update}.
+Independent centered unit uniforms have product density $-2\log(4|z|)$ on $|z|<1/4$, giving equality.
+The proof supplies a useful estimate, but the desired output $Q=2Z+V^2$ requires integrating $k$ along a parabola:
+\[
+ p_Q(s)=\frac12\int_{\mathbb R}k\bigl((s-v^2)/2,v\bigr)\,dv.
+\]
+An $L^2$ bound in the plane does not control this restriction.
+The source explicitly leaves that further estimate open \citep{CaseQFORMShiftL2_2026}.
+
+An elementary example makes that limitation explicit.
+For $0<\varepsilon<1$, put $w=z+v^2/2$ and define
+\[
+ k_\varepsilon(z,v)=
+ \varepsilon^{-1/2}\mathbf1_{\{0\leq v\leq1,\ 0\leq w\leq\varepsilon\}}
+ +(1-\sqrt\varepsilon)\mathbf1_{\{2\leq v\leq3,\ 1\leq w\leq2\}}.
+\]
+The change from $(z,v)$ to $(w,v)$ has Jacobian one.
+The two strips have masses $\sqrt\varepsilon$ and $1-\sqrt\varepsilon$, so $k_\varepsilon$ is a probability density and
+$\norm{k_\varepsilon}_2^2=1+(1-\sqrt\varepsilon)^2\leq2$.
+Nevertheless, the density of $2Z+V^2=2w$ equals $1/(2\sqrt\varepsilon)$ on $(0,2\varepsilon)$.
+Thus a bounded planar $L^2$ norm alone permits arbitrarily high quadratic-output density.
+This example concerns general planar laws: it does not assert that these densities arise from the independent-hub construction, and it is not a counterexample to product-law QFORM.
+It identifies exactly why the extra structure in \eqref{eq:qform-shift-l2-update} must survive the next proof step.
+
+\paragraph{A bounded-density result with an independent hub.}
+A second new note allows any bounded joint planar light density, but retains hub independence.
+For $t\lambda\ne0$ and arbitrary $\beta$ it proves
+\[
+ \norm{p_{\,2tHL+\beta L^2+\lambda V^2}}_\infty
+ \leq\frac12+\frac{4\sqrt2\,M}{|t|\sqrt{|\lambda|}}.
+\]
+On $|L|>1/|t|$, conditioning on $(L,V)$ bounds the hub contribution by $1/2$.
+On the complementary region, the square-map Jacobian in $V$, followed by the cap-one bound for $H$, produces an integrable $|L|^{-1/2}$ kernel.
+The estimate is uniform in $\beta$ and permits deterministic affine terms by translation of the invertible active core.
+It excludes an additional dependent term $2\varepsilon LP$.
+This is why the planar joint-density assumption is compatible with earlier counterexamples for fully dependent three-dimensional laws.
+A separate newly added $51(n-2)/\sigma$ exact-rank-three estimate is weaker than \eqref{eq:qform-fixed-dimension-update} and receives no stronger-bound credit \citep{CaseQFORMBetaHub2026}.
+
+\paragraph{FEI threshold claims and memory version order.}
+The previously omitted read-$k$ FEI manuscript makes additional scoped claims, including
+$H\leq\min(2.89+9.9k,30+5.6\log_2k)I$ for read-$k$ DNF/CNF formulas.
+Its strengthened biased theorem concerns \emph{unweighted} threshold gates
+$T_{t,r}(y)=\mathbf1\{\sum_jy_j\geq t\}$ under product measures with $q_j=\Pp(y_j=1)\in(0,1)$.
+Let $P_\mu(A)$ be squared coefficients of the $\{-1,1\}$ coding in the orthonormal biased Fourier basis, $\sigma_A^2=\prod_{j\in A}4q_j(1-q_j)$, $I_\mu=\sum_A|A|P_\mu(A)$, $V_\mu=\sum_{A\ne\varnothing}P_\mu(A)$, and $J=\sum_{|A|\geq2}|A|P_\mu(A)$.
+The displayed source theorem is
+\[
+ \sum_{A\ne\varnothing}P_\mu(A)\ln\frac{\sigma_A^2}{P_\mu(A)}
+ \leq263J\leq526(I_\mu-V_\mu).
+\]
+Conversion to bits and the O'Donnell--Tan composition theorem give the source's $760I$ bound for read-once formulas over these threshold gates and XOR, with arbitrary fan-in and depth \citep{CaseFEIReadKManuscript2026,ODonnellTanFEI}.
+
+The proof splits according to the largest pivotal probability.
+Below $0.9$, $J\geq I_\mu/10$ lets a weaker bound pay.
+Above $0.9$, lattice anti-concentration forces the other inputs to be nearly deterministic, permitting direct estimates of higher-order spectral mass.
+That implication depends on the unweighted threshold structure: a heavy input of a weighted threshold can coexist with many random light inputs.
+The full FEI conjecture and biased FEI+ for general weighted thresholds remain open.
+These are source manuscript claims with readable proofs and internal checks; this update does not independently certify every lemma or novelty claim \citep{CaseFEIReadKManuscript2026,CaseFEIReadKReport2026}.
+
+The evening memory update explicitly reports no new theorem.
+Its Lean source proves a scalar subadditivity inequality used in the near-dictator argument, not the complete FEI theorem.
+A further card cites a Section 29 with sharper slice estimates, while the pinned report ends at Section 28 and its paper lacks those statements.
+Those later constants are therefore kept as unverified memory claims.
+The new near-dictator card records compilation as pending; the later read-$k$ card reports success.
+This illustrates the need to attach version order, source location, and proof scope to retrieved memories before promoting them into accepted research conclusions \citep{CaseFEISubadd2026,CaseFEINearDictatorCard2026,CaseFEIReadKCardUpdate2026}.

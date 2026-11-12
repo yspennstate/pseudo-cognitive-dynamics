@@ -1,0 +1,58 @@
+\section{Reproducibility and evidence index}
+\label{app:reproducibility}
+
+\subsection{Snapshot identity and coverage}
+
+The supplement records the evidence used for this paper at the following repository revisions. File-level citations and manifests identify the relevant paths and, where retained, content hashes. The two adjacent hexadecimal fragments in each table entry form one commit identifier.
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabularx}{\linewidth}{p{0.43\linewidth}Y}
+\toprule
+Repository under \path{yspennstate/} & Frozen commit\\
+\midrule
+\path{private-source-repository} &
+\texttt{a4c99b43a044c127787c}\allowbreak\texttt{26997ed942f41591aac6}\\
+\path{<private-repo>} &
+\texttt{bcff9346b68959f4cf33}\allowbreak\texttt{0fdf9ca0e64a21c77d3e}\\
+\path{math-open-problems} &
+\texttt{b4745ece98fa3839cf7a}\allowbreak\texttt{fe35d829d08384c815b4}\\
+\bottomrule
+\end{tabularx}
+\caption{Principal source revisions. These identify the examined artifacts; they do not freeze continuing work in other branches or environments.}
+\end{table}
+
+The review used retrieved directories, source files, catalogs, reports, and selected row-level records. It does not claim that every file in these repositories, every historical revision, or every research proof was read or independently verified. Catalog completeness below refers to the eight retrieved input catalogs, not the entire research archive. Private repository citations remain subject to the reader's access. The supplied aggregate data and offline software fixtures support a narrower, independently inspectable set of checks.
+
+\subsection{Comparative evaluation records}
+
+The files \path{benchmark_comparisons.csv} and \path{benchmark_comparisons.json} contain 45 comparative rows. A row is a reported contrast or stratum, not necessarily an independent experiment. Related rows can reuse items, agents, controls, grading records, or intermediate versions. They must not be pooled as 45 independent trials or summed to obtain a unique task count.
+
+Each row retains its endpoint, denominator, comparator, experimental unit, source URL, and design caveat. Where available, it also records discordant outcomes, score differences, nominal probabilities, and selected local recalculations. The source map and \path{recomputed_grade_totals.json} distinguish reported summaries from locally recounted grades. Recounting verifies arithmetic against a grade file; it does not independently establish the mathematical correctness of its key, the independence of responses, or the absence of contamination.
+
+The principal design limitations remain attached to individual rows: ambient memory in a control, unequal tools or context, batch-level replication, reused banks, ceiling effects, and incomplete operating-cost telemetry. W7 retains the distinction between initially masked grading and later adjudication after unmasking. The posture comparisons retain their notes-present baseline rather than relabeling it brain-off \citep{benchmark_w7raw,benchmark_w7adj,benchmark_w7audit,benchmark_m3posture}. The unfinished AB30 study contributes protocol and software evidence, not a completed performance contrast \citep{ab30readme,ab30prereg}.
+
+\subsection{Usage reconstruction}
+
+The aggregate-only usage package contains \path{daily_usage.tsv}, \path{token_summary.json}, \path{half_hour_output_histogram.tsv}, and \path{recompute_usage.py}. Running the script verifies the daily file against its pinned Git blob, recomputes the four token categories and message total, and checks the output sum and cap calculation using the anonymous histogram \citep{ledgerdaily,ledgerhalf}. The histogram contains output amounts and frequencies without session identifiers or local project paths.
+
+The script reports which quantities cannot be reconstructed from these sanitized inputs. Distinct-session counts, directory attribution, original deduplication, and provider billing require further source records. Agreement between aggregates is evidence of arithmetic consistency, not complete transcript coverage. No all-time, cross-provider, or construction-only Math Brain token total is recoverable from the supplied record. Benchmark operating costs may already be represented in the broader ledger and cannot be added without request-level deduplication \citep{ledgerbuilder,ledgersessions}.
+
+\subsection{Research inventory and chronology}
+
+The research supplement preserves 1,391 physical records from eight catalogs, a projection with 1,168 distinct recorded identifiers, and 223 occurrences beyond one per identifier. The last figure measures repeated records or versions, not 223 additional problems. Seven mirrored catalog files were excluded from a second count because their Git blobs matched the corresponding source files exactly. A separate inventory records 87 top-level ProofNet directories.
+
+The identifier projection retains inherited status fields, source locators, version counts, and the explicit review label \code{SOURCE_REPORTED_UNVERIFIED}. Selecting the final observed row for an identifier does not certify that it is mathematically correct or globally current. Similarly, the directory inventory describes stored organization rather than solved-problem counts \citep{CaseCampaignIndex2026,CaseProofnetManifest2026}.
+
+The reviewed chronology is separate from the full catalog. A source-publication year is not automatically the year an open problem was posed. Unverified origin years remain blank; documented formulation dates and uncertainty are retained. The case discussion distinguishes existence of a candidate proof, mathematical scope, novelty, verification, and evidence of actual memory-system use. A catalog status cannot replace any of those judgments.
+
+\subsection{Fresh local controls and their limits}
+
+The \path{lean_controls/} package reproduces 11 receipt-parser controls and a proof-hook routing check with one positive and two negative inputs. Its result record is \path{lean_parser_controls_20260923.json}. These are fresh local Python checks. A parser accepting a supplied successful-build record does not establish that a Lean kernel ran; translation fidelity remains a separate field. The historical formal-companion logs were inspected, but no Lean recompilation was performed for this paper \citep{leanarchitecture,freelean,arclean,degreelean}.
+
+The \path{ab30_repair/} package retains the original analyzer, a one-line correction, a patch, source hashes, and a synthetic regression fixture. The fixture reproduces the original list--set \code{TypeError}, then confirms combined and family summaries after moving the union inside sorting. It also checks session-level token aggregation over two fabricated model entries. Its scores are deliberately synthetic and are not added to any benchmark denominator \citep{ab30analyze}.
+
+The supplement README supplies commands and interpretation boundaries. Held-out answer keys, private transcripts, and raw session histories are excluded. Releasing an evidence package enables inspection; it does not demonstrate that another agent has read it, adopted its corrections, or completed the outstanding study.
+
+
+\input{sections/09_update}

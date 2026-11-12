@@ -1,0 +1,82 @@
+\section{Construction effort and operating efficiency}
+\label{sec:costs}
+
+\subsection{What the construction ledger actually measures}
+
+The available usage ledger covers Claude Code activity on one machine from August 9 through September 9, 2026. It combines construction, maintenance, research, evaluation, and other uses. Its values were recomputed from the stored daily and session TSV files. These aggregates agree exactly in all four token categories; the half-hour file independently reproduces the output total \citep{ledgerdaily,ledgersessions,ledgerhalf,ledgerbuilder}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lr}
+\toprule Recorded category & Token events\\ \midrule
+Uncached input & 9,932,399\\
+Cache read & 122,293,331,806\\
+Cache creation & 1,517,660,758\\
+Generated output & 375,282,198\\
+\midrule
+All input categories & 123,820,924,963\\
+All input and output categories & 124,196,207,161\\
+\bottomrule
+\end{tabular}
+\caption{Exact totals in the available 32-day machine-wide ledger. These are not a Math Brain construction-only total.}
+\label{tab:ledger}
+\end{table}
+
+The combined count describes token events. Cached prefixes can be processed repeatedly, so 124.196 billion events do not mean 124.196 billion distinct tokens of generated knowledge. Cache reads account for about 98.468\% of the combined count; that is a token-event share, not a monetary cost share. The provider distinguishes uncached input, cache creation, and cache reads, and their prices differ \citep{cacheofficial}.
+
+The ledger represents 244,194 usage messages and 11,774 session rows. The documentation's 11,999 transcripts scanned is a different quantity. Of the session rows, 2,124 have a synthetic model label and zero recorded token use; they must not be counted as paid inference sessions. The daily count of active sessions also cannot be summed to obtain a distinct-session total \citep{ledgerreadme,ledgersessions}.
+
+The exact all-time cost of constructing Math Brain is \emph{unidentified}. The ledger excludes dates outside its window and other providers or machines, and it does not label every request as construction, maintenance, or use. A generic home working directory accounts for approximately 79.976\% of output, so directory names cannot recover the missing allocation.
+
+The explicitly mathematical evaluation directories contain 22,689,548 output tokens. Explicit cognitive-architecture improvement directories contain 50,539,727, totaling 73,229,275 output tokens. These are identifiable directory-associated subtotals, not lower bounds on construction alone: evaluations and operation are included. They may overlap token costs reported by benchmark studies and should not be added to them without request-level deduplication \citep{ledgersessions}.
+
+\subsection{Accounting method and limitations}
+
+The builder scans local transcript files, accepts assistant records with usage and message identifiers, deduplicates globally by identifier, parses timestamps, and aggregates usage by session, day, and half-hour \citep{ledgerbuilder}. This is a useful privacy-preserving design because the exported ledger need not retain prompt or response text.
+
+Its completeness is limited. The first observed duplicate wins without reconciling later usage updates. Identifiers are marked as seen before timestamp validation, so an invalid first record can suppress a later valid duplicate. The traversal order is not sorted. Missing files or invalid records are omitted, and a rebuild overwrites the aggregate from surviving transcripts rather than merging preserved historical coverage. The session model label is the most frequent label in that session, not a per-request allocation of mixed-model costs. These facts prevent exact invoice reconstruction from the aggregate.
+
+An internal explanatory claim also failed reproduction: a 30,000-output-token cap per session per half-hour was said to affect 9\% of active half-hours. The stored file instead contains 4,230 rows above that threshold, representing 22.862\% of all 18,502 rows or 26.424\% of the 16,008 positive-output rows. The 9\% denominator is not identified by these files \citep{ledgerreadme,ledgerhalf}. This is an accounting correction, not a mathematical benchmark result.
+
+\subsection{Measured cost of the completed two-agent comparison}
+
+The September 22 two-agent comparison provides an explicit operating-cost record. It contains one session per arm, each answering a batch. The brain arm had broader assistance and access, so the contrast is not an isolated intervention on one mathematical-memory component \citep{twoopus,twoopususage}.
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{lrr}
+\toprule Category & Brain-assisted & Restricted control\\ \midrule
+Uncached input tokens & 182 & 16\\
+Cache-creation tokens & 1,642,459 & 453,543\\
+Cache-read tokens & 21,101,755 & 513,921\\
+Output tokens & 79,228 & 51,104\\
+\midrule
+Total token events & 22,823,624 & 1,018,584\\
+Reported list-price cost & \$22.7979 & \$4.3693\\
+\bottomrule
+\end{tabular}
+\caption{Session-level operating usage from the completed comparison. Total token-event ratio is approximately 22.407; list-price cost ratio is approximately 5.218; output-token ratio is approximately 1.550. These are different units.}
+\label{tab:opcost}
+\end{table}
+
+These session totals cover the original 60-item batches, including the six subsequently excluded questions and the recorded outage/resumption effects. They are not costs allocated solely to the 27 retained mathematical questions. The records show a large private-result recall contrast together with higher token-event volume and API-equivalent cost. Whether that tradeoff is worthwhile depends on the task distribution. Recovering an unavailable theorem or avoiding a week of duplicated proof work may justify considerable overhead. A routine proof audit already solved by the control may not. These examples motivate a value analysis; they do not provide a measured monetary value for a theorem.
+
+The ongoing 30-pair study reports approximately 100,000 starting-context tokens for the brain-on configuration and a much smaller safe-mode probe, as well as substantial hook latency on a saturated machine. Its README gives an example in which the mathematical answer card occupies only 1,818 of 45,227 hook characters. These are diagnostic observations in an unfinished campaign, not completed per-item cost estimates \citep{ab30readme,ab30prereg}.
+
+The later four-arm T11 study in Section~\ref{sec:t11-update} reports approximate counters of 197k, 223k, 217k, and 311k. These lack the separate input, cache, output, and billing categories in Table~\ref{tab:opcost}. They cannot extend the construction ledger or establish a second category-complete operating-cost comparison \citep{benchmark_update_t11_result}.
+
+\subsection{A consistent efficiency criterion}
+
+Let $B_0$ be construction cost in a fixed unit, $D_i$ baseline cost to attain an accepted quality criterion, $S_i$ cost saved by useful memory, and $R_i$ extra retrieval, injection, consolidation, and verification cost. Then total memory-system cost is
+\[
+B_0+\sum_{i=1}^n(D_i-S_i+R_i).
+\]
+It is lower than baseline exactly when
+\[
+\sum_{i=1}^n(S_i-R_i)>B_0.
+\]
+This follows by subtracting the baseline sum. Under a stationary expected net saving $\delta>0$, expected break-even requires $n\delta>B_0$. Neither $B_0$ nor $\delta$ is identified for the full system by the available data, so no empirical break-even horizon is reported.
+
+If the two systems have different success rates, cost alone is insufficient. Under a specified repeated-task distribution and ordinary law-of-large-numbers conditions, mean cost $c$ and acceptance probability $p>0$ yield long-run cost per accepted result $c/p$. The ratio must be evaluated on the same quality criterion and task population. A recall benchmark with private answers, a proof-audit bank, and an open-problem campaign do not share an interchangeable denominator.
+
+Future accounting should attach request identifiers, provider and model versions, treatment arm, memory snapshot, cache categories, activity type, retries, failures, and review costs to every run. Solver-only and end-to-end costs should both be reported. List-price API-equivalent estimates should remain distinct from actual subscription expenditure or invoices. Deterministic retrieval may use no model-generation call, but its emitted text still occupies and may be billed as model context.
